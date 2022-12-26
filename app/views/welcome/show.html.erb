@@ -9,11 +9,6 @@
       width: 240px;
     }
 
-    .add-sticky{
-        position: sticky;
-        top: 100px;
-    }
-
     .search-div input{
       outline: none;
       background: rgba(250, 250, 250, 1);
@@ -161,8 +156,8 @@
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently.
             </p>
         </div>
-        <div class="col-4 d-none d-lg-block py-5">
-            <div class="py-5 bay px-4">
+        <div class="col-4 d-none d-lg-block py-5 position-relative">
+            <div class="py-5 sidebar px-4">
                 <%= image_tag "image.jpg",height: 70, class:"rounded-circle mb-3" %>
                 <p class="fs-5 fw-bold m-0 pb-2">Chit Thu Wai</p>
                 <p class="txt-color fw-bold">100 Posts</p>
@@ -225,19 +220,19 @@
     </div>
 </section>
 <section class="" style="height:1000px;"></section>
-<%# <script>
+<script>
     $(document).ready(function(){
         $(function () {
         $(document).scroll(function () {
-            var $bay = $(".bay");
-            $result = $bay.height() - $(this).scrollTop();
-            console.log($result);
-            console.log(window.innerHeight);
-            if($result < window.innerHeight){
-                $bay.addClass('add-sticky');
+            var $sidebar = $(".sidebar");
+            $result = $sidebar.height() -window.innerHeight;
+            $result = $result + 150;
+            if($(this).scrollTop()){
+                $sidebar.css('position','sticky');
+                $sidebar.css('top', -$result+'px')
             }
             });
         })
     });
-</script> %>
+</script>
 
