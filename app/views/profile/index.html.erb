@@ -1,0 +1,208 @@
+<style>
+    
+</style>
+<nav class="navbar border-bottom border-dark-50 sticky-top w-100" style="background-color:#fff;z-index:2;border-bottom:1px solid rgba(242, 242, 242, 1);">
+    <div class="container-fluid py-2 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand ps-3 pe-1 py-0 fs-4 fw-bold" href="#">
+                <svg viewBox="0 0 1043.63 592.71" style="height:25px"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M588.67 296.36c0 163.67-131.78 296.35-294.33 296.35S0 460 0 296.36 131.78 0 294.34 0s294.33 132.69 294.33 296.36M911.56 296.36c0 154.06-65.89 279-147.17 279s-147.17-124.94-147.17-279 65.88-279 147.16-279 147.17 124.9 147.17 279M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.91-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.9 51.76 249.94"></path></g></g></svg>
+            </a>
+            <div class="d-none d-md-flex search-div align-items-center p-2">
+                <div class="mx-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.1 11.06a6.95 6.95 0 1 1 13.9 0 6.95 6.95 0 0 1-13.9 0zm6.94-8.05a8.05 8.05 0 1 0 5.13 14.26l3.75 3.75a.56.56 0 1 0 .8-.79l-3.74-3.73A8.05 8.05 0 0 0 11.04 3v.01z" fill="currentColor"></path></svg>
+                </div>
+                <input type="text" class="border border-0" name="search" placeholder="Search Medium">
+            </div>
+        </div>
+        <ul class="d-flex align-items-center m-0">
+            <li class="d-md-none nav-item list-unstyled pe-4">
+                <a class="nav-link txt-color" href="#">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Search"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.1 11.06a6.95 6.95 0 1 1 13.9 0 6.95 6.95 0 0 1-13.9 0zm6.94-8.05a8.05 8.05 0 1 0 5.13 14.26l3.75 3.75a.56.56 0 1 0 .8-.79l-3.74-3.73A8.05 8.05 0 0 0 11.04 3v.01z" fill="currentColor"></path></svg>
+                </a>
+            </li>
+            <li class="d-none d-md-block nav-item list-unstyled pe-3">
+                <a class="nav-link txt-color" href="#">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Write"><path d="M14 4a.5.5 0 0 0 0-1v1zm7 6a.5.5 0 0 0-1 0h1zm-7-7H4v1h10V3zM3 4v16h1V4H3zm1 17h16v-1H4v1zm17-1V10h-1v10h1zm-1 1a1 1 0 0 0 1-1h-1v1zM3 20a1 1 0 0 0 1 1v-1H3zM4 3a1 1 0 0 0-1 1h1V3z" fill="currentColor"></path><path d="M17.5 4.5l-8.46 8.46a.25.25 0 0 0-.06.1l-.82 2.47c-.07.2.12.38.31.31l2.47-.82a.25.25 0 0 0 .1-.06L19.5 6.5m-2-2l2.32-2.32c.1-.1.26-.1.36 0l1.64 1.64c.1.1.1.26 0 .36L19.5 6.5m-2-2l2 2" stroke="currentColor"></path></svg>
+                    <span>Write</span>
+                </a>
+            </li>
+            <li class="nav-item list-unstyled">
+                <div class="dropdown border border-0">
+                    <a class="btn dropdown-toggle border border-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <%= image_tag "image.jpg",height: 30, class:"rounded-circle" %>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li class="d-block d-md-none">
+                            <a class="dropdown-item py-2 txt-color" href="#">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Write"><path d="M14 4a.5.5 0 0 0 0-1v1zm7 6a.5.5 0 0 0-1 0h1zm-7-7H4v1h10V3zM3 4v16h1V4H3zm1 17h16v-1H4v1zm17-1V10h-1v10h1zm-1 1a1 1 0 0 0 1-1h-1v1zM3 20a1 1 0 0 0 1 1v-1H3zM4 3a1 1 0 0 0-1 1h1V3z" fill="currentColor"></path><path d="M17.5 4.5l-8.46 8.46a.25.25 0 0 0-.06.1l-.82 2.47c-.07.2.12.38.31.31l2.47-.82a.25.25 0 0 0 .1-.06L19.5 6.5m-2-2l2.32-2.32c.1-.1.26-.1.36 0l1.64 1.64c.1.1.1.26 0 .36L19.5 6.5m-2-2l2 2" stroke="currentColor"></path></svg>
+                                <span class="ms-3">Write</span>
+                            </a>
+                        </li>
+                        <div class="d-block d-md-none" style="background-color: rgb(230, 230, 230);margin: 8px 16px;height:2px;width:24px;"></div>
+                        <li>
+                            <a class="dropdown-item py-2 txt-color" href="#">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Profile"><circle cx="12" cy="7" r="4.5" stroke="currentColor"></circle><path d="M3.5 21.5v-4.34C3.5 15.4 7.3 14 12 14s8.5 1.41 8.5 3.16v4.34" stroke="currentColor" stroke-linecap="round"></path></svg>
+                                <span class="ms-3">Profile</span>
+                            </a>
+                        </li>
+                        <li class="border-bottom pb-2">
+                            <a class="dropdown-item pb-2 txt-color" href="#">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Lists"><path d="M6.44 6.69h0a1.5 1.5 0 0 1 1.06-.44h9c.4 0 .78.16 1.06.44l.35-.35-.35.35c.28.28.44.66.44 1.06v14l-5.7-4.4-.3-.23-.3.23-5.7 4.4v-14c0-.4.16-.78.44-1.06z" stroke="currentColor"></path><path d="M12.5 2.75h-8a2 2 0 0 0-2 2v11.5" stroke="currentColor" stroke-linecap="round"></path></svg>
+                                <span class="ms-3">Lists</span>
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item py-2 txt-color" href="#">Sign Out</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<section class="container">
+    <div class="row">
+        <div class="col-12 col-lg-8 blk py-5 mx-auto">
+            <div class="row mb-5 pe-0 pe-md-5">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <%= image_tag "image.jpg",height: 50, class:"rounded-circle me-1 me-md-3" %>
+                            <p class="mb-0 fs-4 fs-md-3 fw-bold">Myat Theingi Aung</p>
+                        </div>
+                        <div class="d-none d-md-inline-block">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#profileModal" class="d-inline-block"><span class="rounded-pill bg-secondary text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Edit Profile</span></a>
+                            <a href="" data-bs-toggle="modal" data-bs-target="#passwordModal" class="d-inline-block"><span class="rounded-pill bg-success text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Change Password</span></a>
+                        </div>
+                        <div class="dropdown d-md-none">
+                            <button class="btn btn-white border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.39 12c0 .55.2 1.02.59 1.41.39.4.86.59 1.4.59.56 0 1.03-.2 1.42-.59.4-.39.59-.86.59-1.41 0-.55-.2-1.02-.6-1.41A1.93 1.93 0 0 0 6.4 10c-.55 0-1.02.2-1.41.59-.4.39-.6.86-.6 1.41zM10 12c0 .55.2 1.02.58 1.41.4.4.87.59 1.42.59.54 0 1.02-.2 1.4-.59.4-.39.6-.86.6-1.41 0-.55-.2-1.02-.6-1.41a1.93 1.93 0 0 0-1.4-.59c-.55 0-1.04.2-1.42.59-.4.39-.58.86-.58 1.41zm5.6 0c0 .55.2 1.02.57 1.41.4.4.88.59 1.43.59.57 0 1.04-.2 1.43-.59.39-.39.57-.86.57-1.41 0-.55-.2-1.02-.57-1.41A1.93 1.93 0 0 0 17.6 10c-.55 0-1.04.2-1.43.59-.38.39-.57.86-.57 1.41z" fill="#000"></path></svg>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal" href="#">Edit Profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#passwordModal" href="#">Change Password</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ps-4 ps-md-5 pe-md-5">
+                <div class="col-12 pe-md-5">
+                    <h4 class="pb-3 border-bottom border-dark-50">Information</h4>
+                    <div class="pt-4 mb-4">
+                        <p class="m-0 fs-6 fw-bold pb-2">Email</p>
+                        <p>scm.myattheingiaung@gmail.com</p>
+                    </div>
+                    <div class="pt-2">
+                        <p class="m-0 fs-6 fw-bold pb-2">Post Count</p>
+                        <span class="rounded-pill d-inline-block text-white bg-secondary mb-3 px-2">5</span>
+                    </div>
+                    <div class="pt-2 mb-4">
+                        <p class="m-0 fs-6 fw-bold pb-2">Bio</p>
+                        <p class="">Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row ps-md-5">
+                 <div class="col-12">
+                    <h4 class="pb-3 pt-4 border-bottom border-dark-50">My Posts</h4>
+                        <% for i in 0..2 %>
+                            <div class="pb-3 pt-4 border-bottom border-dark-50">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <%= image_tag "image.jpg",height: 24, class:"rounded-circle me-2" %>
+                                            <p class="m-0"><span class="fs-6 me-1 fw-bold">Garrick McFadden</span><span class="me-1">.</span><span class="text-black-50">15 hours ago</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-8">
+                                        <h4 class="fw-bolder">Beach Globe Paradise</h4>
+                                        <p class="m-0 d-none d-md-block" style="color: rgba(41, 41, 41, 1);line-height:1.7;text-align:justify;">Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita and the other well, the other flips off life violently forbidden contestants on...</p>
+                                    </div>
+                                    <div class="col-1"></div>
+                                    <div class="col-3">
+                                        <%= image_tag "login.jfif", class:"img-fluid" %>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-9">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="align-items-end" style="color:rgba(117, 117, 117, 1);">
+                                                <span class="rounded-pill d-inline-block px-3 pb-1" style="background-color: rgba(242, 242, 242, 1);">Health</span> <span class="mx-1">.</span> <span>9 min read</span> <span class="mx-1">.</span> <span class="d-none d-md-inline-block">Selected for you</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center fs-2">
+                                                <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none" class="tz"><path d="M17.5 1.25a.5.5 0 0 1 1 0v2.5H21a.5.5 0 0 1 0 1h-2.5v2.5a.5.5 0 0 1-1 0v-2.5H15a.5.5 0 0 1 0-1h2.5v-2.5zm-11 4.5a1 1 0 0 1 1-1H11a.5.5 0 0 0 0-1H7.5a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-8.5a.5.5 0 0 0-1 0v7.48l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4V5.75z" fill="#000"></path></svg>
+                                                <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM8.25 12h7.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.39 12c0 .55.2 1.02.59 1.41.39.4.86.59 1.4.59.56 0 1.03-.2 1.42-.59.4-.39.59-.86.59-1.41 0-.55-.2-1.02-.6-1.41A1.93 1.93 0 0 0 6.4 10c-.55 0-1.02.2-1.41.59-.4.39-.6.86-.6 1.41zM10 12c0 .55.2 1.02.58 1.41.4.4.87.59 1.42.59.54 0 1.02-.2 1.4-.59.4-.39.6-.86.6-1.41 0-.55-.2-1.02-.6-1.41a1.93 1.93 0 0 0-1.4-.59c-.55 0-1.04.2-1.42.59-.4.39-.58.86-.58 1.41zm5.6 0c0 .55.2 1.02.57 1.41.4.4.88.59 1.43.59.57 0 1.04-.2 1.43-.59.39-.39.57-.86.57-1.41 0-.55-.2-1.02-.57-1.41A1.93 1.93 0 0 0 17.6 10c-.55 0-1.04.2-1.43.59-.38.39-.57.86-.57 1.41z" fill="#000"></path></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!--Profile Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="image.png" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body ps-5">
+            <div class="d-flex justify-content-between align-items-center pt-3 mb-5">
+                <h1 class="modal-title fs-4" id="image.png">Profile Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <%= form_with do |form| %>
+                <%= form.label :image, "Photo", class:"mb-3" %>
+                <div class="mb-4">
+                    <%= image_tag "image.jpg",height: 70, class:"rounded-circle me-3" %>
+                    <a class="text-decoration-none text-success fs-6 me-2 d-inline-block" href="#">Update</a>
+                    <a class="text-decoration-none text-danger" href="#">Remove</a>
+                </div>
+                <%= form.label :name, "Name", class:"mb-2" %>
+                <%= form.text_field :name, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Name", style:"outline:none;border-color:#ced4da" %>
+                <%= form.label :password, "Password", class:"mb-2" %>
+                <%= form.password_field :password, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Password", style:"outline:none;border-color:#ced4da" %>
+                <%= form.label :bio, "Bio", class:"mb-2" %>
+                <%= form.text_area :bio, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Bio", style:"outline:none;border-color:#ced4da" %>
+                <div class="d-flex justify-content-end">
+                    <a href="" class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
+                    <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+  </div>
+</div>
+<!--Pssword Modal -->
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="image.png" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body ps-5">
+            <div class="d-flex justify-content-between align-items-center pt-3 mb-5">
+                <h1 class="modal-title fs-4" id="image.png">Change Password</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <%= form_with do |form| %>
+                <%= form.label :oldpass, "Old Password", class:"mb-2" %>
+                <%= form.password_field :oldpass, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Old Password", style:"outline:none;border-color:#ced4da" %>
+                <%= form.label :newpass, "New Password", class:"mb-2" %>
+                <%= form.password_field :newpass, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"New Password", style:"outline:none;border-color:#ced4da" %>
+                <%= form.label :confpass, "Confirm Password", class:"mb-2" %>
+                <%= form.password_field :confpass, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Confirm Password", style:"outline:none;border-color:#ced4da" %>
+                <div class="d-flex justify-content-end">
+                    <a class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
+                    <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+  </div>
+</div>

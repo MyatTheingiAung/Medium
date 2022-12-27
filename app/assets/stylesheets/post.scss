@@ -1,0 +1,12 @@
+// Place all the styles related to the Post controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.txt-color{
+    color: rgba(117,117,117,1);
+}
+
+@media only screen and (max-width: 768px) {
+    .blk.col-12.col-lg-8 {
+        border: none !important;
+    }
+}

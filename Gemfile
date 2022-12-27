@@ -25,6 +25,10 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootstrap', '~> 5.2.3'
 gem 'jquery-rails'
 gem "font-awesome-sass", "~> 6.2.1"
+gem "font-awesome-rails"
+gem 'jquery-turbolinks'
+
+gem 'simple_form'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
