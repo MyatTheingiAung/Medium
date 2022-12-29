@@ -21,10 +21,23 @@
   width: 240px;
 }
 
-.search-div input{
+.search-div .search{
   outline: none;
   background: rgba(250, 250, 250, 1);
   font-size: 14px;
   font-weight: 500;
+}
+
+#hideMeAfter5Seconds {
+  animation: hideAnimation 0s ease-in 5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hideAnimation {
+  to {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
 }
 

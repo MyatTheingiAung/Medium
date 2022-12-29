@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
+  get 'home', to: 'welcome#index'
   get 'profile/index'
-  get 'auth/login'
-  get 'auth/register'
+  get 'login', to: 'auth#login'
+  post 'login', to: 'auth#userLogin'
+  get 'register', to: 'auth#register'
+  post 'register', to: 'auth#create'
+  delete 'logout', to: "auth#logout"
   get 'post/create'
   get 'post/list'
   get 'post/show'
