@@ -18,15 +18,17 @@
                                 <div class="col-8">
                                     <h4 class="fw-bolder"><%= post.title %></h4>
                                     <p class="m-0 d-none d-md-block" style="color: rgba(41, 41, 41, 1);line-height:1.7;text-align:justify;">
-                                        <%= post.description %>
+                                        <%=raw post.description %>
                                     </p>
                                 </div>
                                 <div class="col-1"></div>
                                 <div class="col-3">
-                                    <%= image_tag "login.jfif", class:"img-fluid" %>
+                                    <% if post.image.attached? %>
+                                        <img src="<%= (url_for(post.image)) %>" width="150px" height="150px">
+                                    <% end %>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-12 col-md-9">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="align-items-end" style="color:rgba(117, 117, 117, 1);">
@@ -131,7 +133,7 @@
                                 <p class="fw-bold px-2 m-0"><%= post.user.name %></p>
                             </div>
                             <p class="fw-bold fs-5 fs-md-3"><%= post.title %></p>
-                            <p class="fs-6 d-none d-md-block" style="color:rgba(117, 117, 117, 1);font-weight:500;"><%= truncate(post.description, :length => 50) %></p>
+                            <p class="fs-6 d-none d-md-block" style="color:rgba(117, 117, 117, 1);font-weight:500;"><%=raw truncate(post.description, :length => 50) %></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="align-items-end" style="color:rgba(117, 117, 117, 1);">
                                     <span><%= time_ago_in_words(post.created_at) %></span> <span class="mx-1">.</span> <span>9 min read</span> <span class="mx-1">.</span> <span class="d-none d-md-inline-block rounded-pill d-inline-block px-3 pb-1" style="background-color: rgba(242, 242, 242, 1);"><%= post.category.name %></span>

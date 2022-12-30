@@ -13,6 +13,14 @@ class PostController < ApplicationController
   end
   def store
     @post = Post.new(post_param)
+    @post.user_id = session[:user_id]
+    if @post.save
+      flash[:success] = "Post Create Successfully!."
+      redirect_to(:action => :index)
+    else
+      flash[:category_id] = params[:post][:category_id]
+      render 'create'
+    end
   end
   def show
   end

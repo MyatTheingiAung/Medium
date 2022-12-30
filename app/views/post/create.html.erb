@@ -6,14 +6,22 @@
     <div class="row py-5">
         <div class="col-12 col-lg-8 mx-auto">
             <div class="px-3 py-2 px-md-5 py-md-4 border border-3 border-secondary" style="border-radius:20px">
+                <h3 class="mb-3">Post Create</h3>
                 <%= form_with model: @post, url: '/post/create', method: :post do |form| %>
-                    <h3 class="mb-3">Post Create</h3>
-                    <%= form.text_field :title , class:"form-control mb-4", placeholder:"Post Title" %>
-                    <%= form.select(:category_id, options_from_collection_for_select(Category.all, :id, :name), {include_blank: "Select a category"}, { :class => 'form-select mb-4' }) %>
-                    <%= image_tag "", class:"image-preview d-none img-fluid rounded mb-4", style:"width:100px;height:100px" %>
-                    <%= form.file_field :image, accept:"image/png,image/gif,image/jpeg,image/jpg", id:"imageInput", class:"form-control mb-4" %>
+                    <%= form.text_field :title , class:"form-control", placeholder:"Post Title" %>
+                    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:title).to_sentence %></span>
+
+                    <%= form.select(:category_id, options_from_collection_for_select(Category.all, :id, :name, flash[:category_id]), {include_blank: "Select a category"}, { :class => 'form-select' }) %>
+                    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:category_id).to_sentence %></span>
+
+                    <%= image_tag "" , class:"image-preview d-none img-fluid rounded", style:"width:100px;height:100px" %>
+                    <%= form.file_field :image, accept:"image/png,image/gif,image/jpeg,image/jpg", id:"imageInput", class:"form-control" %>
+                    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:image).to_sentence %></span>
+
                     <%= form.text_area :description, id:"summernote" %>
-                    <%= form.submit 'Publish' , class:"mt-4 btn btn-secondary" %>
+                    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:description).to_sentence %></span>
+
+                    <%= form.submit 'Publish' , class:"btn btn-secondary" %>
                 <% end %>
             </div>
         </div>
@@ -25,11 +33,11 @@
         if($input.val().length > 0) {
             fileReader = new FileReader();
             fileReader.onload = function (data) {
-                console.log(data.target.result);
             $('.image-preview').attr('src', data.target.result);
             }
             fileReader.readAsDataURL($input.prop('files')[0]);
             $('.image-preview').removeClass('d-none');
+            $('.image-preview').addClass('mb-4');
         }
     });
     $('#summernote').summernote({
