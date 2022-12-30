@@ -17,7 +17,7 @@ class AuthController < ApplicationController
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
       flash[:notice] = "Logged in successfully."
-      redirect_to '/home'
+      redirect_to '/'
     else
       flash[:alert] = "Credential do not match our record."
       render 'login'
@@ -38,7 +38,7 @@ class AuthController < ApplicationController
   def logout
     session[:user_id] = nil
     flash[:notice] = "You have been logged out."
-    redirect_to '/home'
+    redirect_to '/'
   end
 
   private

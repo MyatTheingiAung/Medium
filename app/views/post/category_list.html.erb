@@ -5,15 +5,9 @@
         <div class="pt-lg-5" style="position:sticky;top:135px">
             <h5>CATEGORY</h5>
             <div class="mt-4 pb-4">
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Programming</a>
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Data Science</a>
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Technology</a>
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Self Improvement</a>
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Writing</a>
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Relationships</a>
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Machine Learning</a>
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Productivity</a>
-                <a class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);" href="#">Politics</a>
+                <% @categories.each do |category| %>
+                    <a href="/category/<%= category.name %>" class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);"><%= category.name %></a>
+                <% end %>
             </div>
             <div class="d-lg-block d-none border-bottom">
                 <p class="d-none"></p>
@@ -36,7 +30,7 @@
     <div class="col-lg-7 col-12">
         <div class="d-flex pb-3 align-items-center border-bottom border-dark-50">
             <span class="px-1 pb-1 me-2 rounded-circle" style="background-color:rgb(237, 237, 237);"><svg width="21" height="21" class="uv"><path d="M4.66 8.72L3.43 9.95a1.75 1.75 0 0 0 0 2.48l5.14 5.13c.7.7 1.8.69 2.48 0l1.23-1.22 5.35-5.35a2 2 0 0 0 .51-1.36l-.32-4.29a2.42 2.42 0 0 0-2.15-2.14l-4.3-.33c-.43-.03-1.05.2-1.36.51l-.79.8-2.27 2.28-2.28 2.27zm9.83-.98a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5z" fill-rule="evenodd"></path></svg></span>
-            <h1 class="m-0 fw-bolder">Programming</h1>
+            <h1 class="m-0 fw-bolder"><%= @category.name %></h1>
         </div>
         <% for i in 0..5 %>
         <div class="mt-5 mb-5">

@@ -29,6 +29,7 @@ gem "font-awesome-rails"
 gem 'jquery-turbolinks'
 
 gem 'simple_form'
+gem 'kaminari'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
