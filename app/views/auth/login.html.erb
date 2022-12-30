@@ -5,9 +5,6 @@
             <div class="px-3 py-3 px-md-4 px-lg-5 py-md-4 border border-3 border-secondary" style="border-radius:20px">
                 <h3 class="mb-3">Login</h3>
                 <div id="hideMeAfter5Seconds">
-                    <% if flash[:register] %>
-                        <p class="notice alert alert-success" role="alert"><%= flash[:register] %></p>
-                    <% end %>
                     <% if flash[:error_email].blank? && flash[:error_password].blank? %>
                         <% if flash[:alert] %>
                             <p class="notice alert alert-danger" role="alert"><%= flash[:alert] %></p>

@@ -13,3 +13,4 @@ import "../../assets/stylesheets/application.scss"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+global.toastr = require("toastr")

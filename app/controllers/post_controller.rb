@@ -15,7 +15,7 @@ class PostController < ApplicationController
     @post = Post.new(post_param)
     @post.user_id = session[:user_id]
     if @post.save
-      flash[:success] = "Post Create Successfully!."
+      flash[:notice] = "Post Create Successfully!."
       redirect_to(:action => :index)
     else
       flash[:category_id] = params[:post][:category_id]
@@ -23,10 +23,12 @@ class PostController < ApplicationController
     end
   end
   def show
+    @post = Post.find(params[:id])
   end
   def category_list
     @categories = Category.all
     @category = Category.where(name: params[:name]).first
+    @posts = Post.where(category_id: @category.id).all
   end
   def search
     @query = params[:query]

@@ -15,11 +15,11 @@ class AuthController < ApplicationController
     end
     @user = User.find_by(email: params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
+      flash[:notice] = "Logged in successfully!"
       session[:user_id] = @user.id
-      flash[:notice] = "Logged in successfully."
       redirect_to '/'
     else
-      flash[:alert] = "Credential do not match our record."
+      flash[:alert] = "Credential do not match our record!"
       render 'login'
     end
   end
@@ -29,7 +29,7 @@ class AuthController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:register] = "Register Successfully!."
+      flash[:notice] = "Register Successfully!."
       redirect_to(:action => :login)
     else
       render 'register'
