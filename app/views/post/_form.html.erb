@@ -1,0 +1,21 @@
+<%= form_with model: @post, local: true do |form| %>
+    <%= form.text_field :title , class:"form-control", placeholder:"Post Title" %>
+    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:title).to_sentence %></span>
+
+    <%= form.select(:category_id, options_from_collection_for_select(Category.all, :id , :name , @category_id), {include_blank: "Select a category"}, { :class => 'form-select' }) %>
+    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:category_id).to_sentence %></span>
+
+    <%= image_tag "" , class:"image-preview d-none img-fluid rounded", style:"width:100px;height:100px" %>
+    <p class="db-img m-0">
+        <% if form.object.image.present? %>
+        <%= image_tag form.object.image, class: "img-fluid rounded mb-4", style:"width:100px;height:100px" %>
+        <% end %>
+    </p>
+    <%= form.file_field :image, accept:"image/png,image/gif,image/jpeg,image/jpg", id:"imageInput", class:"form-control" %>
+    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:image).to_sentence %></span>
+
+    <%= form.text_area :description, id:"summernote" %>
+    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:description).to_sentence %></span>
+
+    <%= form.submit 'Publish' , class:"btn btn-secondary" %>
+<% end %>

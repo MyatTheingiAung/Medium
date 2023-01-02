@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   get 'register', to: 'auth#register'
   post 'register', to: 'auth#create'
   delete 'logout', to: "auth#logout"
-  get 'post/create'
-  post 'post/create', to: "post#store"
   get '/', to: "post#index"
+  get 'post/create'
+  post 'posts', to: "post#store"
+  resources :post
   get 'post/show'
   get 'category/:name', to: "post#category_list"
   get 'search', to: "post#search"

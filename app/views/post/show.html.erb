@@ -21,42 +21,46 @@
                 <div class="d-flex">
                     <%= image_tag "image.jpg",height: 40, class:"rounded-circle" %>
                     <div class="ms-3">
-                        <p class="mb-0 fw-bold">Chit Thu Wai</p>
-                        <span class="txt-color">Nov 30</span> <span>.</span> <span class="txt-color">7 min read</span> <span>.</span>
+                        <p class="mb-0 text-capitalize fw-bold"><%= @post.user.name %></p>
+                        <span class="txt-color"><%= time_ago_in_words(@post.created_at) %></span> <span>.</span> <span class="txt-color">7 min read</span> <span>.</span>
                     </div>
                 </div>
                 <div class="me-4">
-                    <a href="#" class="badge rounded-pill bg-danger px-3 py-2 text-decoration-none text-white">Delete</a>
+                    <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
                 </div>
             </div>
-            <%= image_tag "show.jfif", class:"img-fluid mb-4" %>
-            <p class="fs-3 fw-bold mb-4">A Recent Study Debunked The Serotonin Link to Depression</p>
+            <% if @post.image.attached? %>
+                <img src="<%= (url_for(@post.image)) %>" class="img-fluid mb-4" width="100%" height="300px">
+            <% end %>
+            <p class="fs-3 fw-bold mb-4"><%= @post.title%></p>
             <p class="lh-lg" style="text-align: justify;">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently.
+                <%=raw @post.description %>
             </p>
         </div>
         <div class="col-4 d-none d-lg-block py-5 position-relative">
             <div class="py-5 sidebar px-4">
                 <%= image_tag "image.jpg",height: 70, class:"rounded-circle mb-3" %>
-                <p class="fs-5 fw-bold m-0 pb-2">Chit Thu Wai</p>
-                <p class="txt-color fw-bold">100 Posts</p>
+                <p class="fs-5 fw-bold m-0 text-capitalize pb-2"><%= @post.user.name %></p>
+                <p class="txt-color fw-bold"><%= @post_count %> Posts</p>
                 <p class="txt-color">54+ autistic, undiagnosed dyslexic, sufferer of chronic migraines, writer of dark science fiction, player of Genshin Impact and Mike Pondsmith Fan. Race- Human.</p>
                 <div>
                     <p class="fs-5" style="font-weight:500;">More from Medium</p>
                     <div>
-                        <% for i in 0..4 %>
+                        <% @posts.each do |post| %>
                             <div class="row mb-3">
                                 <div class="col-9">
                                     <div class="d-flex align-items-center mb-2">
                                         <%= image_tag "image.jpg",height: 20, class:"rounded-circle" %>
                                         <div class="ms-2">
-                                            <p class="mb-0">Chit Thu Wai</p>
+                                            <p class="mb-0 text-capitalize"><%= post.user.name %></p>
                                         </div>
                                     </div>
-                                    <p class="fw-bold fs-6" style="letter-spacing:1px;">4 Things You Should Know About Kids Who Go No Contact With Their Parents</p>
+                                    <p class="fw-bold fs-6" style="letter-spacing:1px;"><%= post.title %></p>
                                 </div>
                                 <div class="col-3 d-flex justify-content-end">
-                                    <%= image_tag "two.jfif",height: 56,width: 56 %>
+                                    <% if @post.image.attached? %>
+                                        <img src="<%= (url_for(post.image)) %>" class="img-fluid mb-4" width="56px" height="56px">
+                                    <% end %>
                                 </div>
                             </div>
                         <% end %>
