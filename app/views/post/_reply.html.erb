@@ -1,0 +1,26 @@
+<div class="mt-4 reply-form comment-form-<%= comment.id %> d-none">
+    <%= form_with model: @comment, url: '/comment/reply' , method: :post do |form| %>  
+        <%= form.hidden_field :parent_id, :value => comment.id %> 
+        <%= form.hidden_field :user_id, :value => session[:user_id] %>
+        <%= form.hidden_field :post_id, :value => @post.id %>        
+        <p>
+            <%= form.text_area :comment, :size => "50x3" , class:"form-control w-100 comment-area", placeholder:"Your suggest comments?" %>
+            <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:comment).to_sentence %></span>
+        </p>
+        <p class="d-flex justify-content-end"> 
+            <%= form.submit "Comment", class:'btn btn-primary me-2' %>
+            <a href="" class="btn btn-danger cancel-btn-<%= comment.id %>">Cancel</a>
+        </p>
+    <% end %>
+</div>
+<script>
+    $('.reply-btn-<%= comment.id %>').click(function(e){
+        e.preventDefault();
+        $('.reply-form').addClass('d-none');
+        $('.comment-form-<%= comment.id %>').toggleClass('d-none');
+    });
+    $('.cancel-btn-<%= comment.id %>').click(function(e){
+        e.preventDefault();
+        $('.comment-form-<%= comment.id %>').addClass('d-none');
+    });
+</script>

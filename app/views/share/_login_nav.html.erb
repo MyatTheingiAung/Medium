@@ -28,7 +28,11 @@
             <li class="nav-item list-unstyled">
                 <div class="dropdown border border-0">
                     <a class="btn dropdown-toggle border border-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <%= image_tag "image.jpg",height: 30, class:"rounded-circle" %>
+                        <% if current_user.image.attached? %>
+                            <img src="<%= (url_for(current_user.image)) %>" width="30px" height="30px" class="rounded-circle">
+                        <% else %>
+                            <%= image_tag "usre.png",height: 30, class:"rounded-circle" %>
+                        <% end %>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li class="d-block d-md-none">
@@ -50,7 +54,7 @@
                                 <span class="ms-3">Lists</span>
                             </a>
                         </li>
-                        <li><%= link_to 'Sign Out', logout_path, class:"dropdown-item py-2 txt-color", method: :delete %></li>
+                        <li><%= link_to 'Logout', logout_path, class:"dropdown-item py-2 txt-color", method: :delete %></li>
                     </ul>
                 </div>
             </li>

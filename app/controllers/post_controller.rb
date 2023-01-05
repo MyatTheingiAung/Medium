@@ -1,4 +1,18 @@
 class PostController < ApplicationController
+  def search
+    @query = params[:query]
+    @posts = Post.where(["title LIKE ?","%#{@query}%"]).page(params[:page])
+    @categories = Category.all
+    @last_posts = Post.last(3)
+    render 'index'
+  end
+
+  def category_list
+    @categories = Category.all
+    @category = Category.where(name: params[:name]).first
+    @posts = Post.where(category_id: @category.id).all
+  end
+
   def index
     @posts = Post.order("id DESC").page(params[:page])
     @categories = Category.all
@@ -6,10 +20,8 @@ class PostController < ApplicationController
   end
 
   def create
-    if session[:user_id]
-      @post = Post.new
-    else
-      redirect_to '/'
+    if !require_user
+      @post = Post.new  
     end
   end
 
@@ -27,14 +39,13 @@ class PostController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    @category = Category.find(@post.category_id)
-    @category_id = @category.id
-  end
-  
-  def show
-    @post = Post.find(params[:id])
-    @posts = Post.where(user_id: @post.user_id)
-    @post_count = @posts.count
+    if @post.user_id === current_user.id
+      @category = Category.find(@post.category_id)
+      @category_id = @category.id
+    else
+      flash[:alert] = "Other user post"
+      redirect_to(:action => :index)
+    end
   end
 
   def update
@@ -54,23 +65,66 @@ class PostController < ApplicationController
       redirect_to(:action => :index)
     end
   end
-
-  def category_list
-    @categories = Category.all
-    @category = Category.where(name: params[:name]).first
-    @posts = Post.where(category_id: @category.id).all
+  
+  def show
+    @post = Post.find(params[:id])
+    @posts = Post.where(user_id: @post.user_id)
+    @comment = Comment.new
+    @comments = Comment.order("id DESC").where(post_id: @post.id).where(parent_id: nil)
   end
 
-  def search
-    @query = params[:query]
-    @posts = Post.where(["title LIKE ?","%#{@query}%"]).page(params[:page])
-    @categories = Category.all
-    @last_posts = Post.last(3)
-    render 'index'
+  def comment_store
+    @comment = Comment.new(comment_param)
+    if @comment.save
+      flash[:notice] = "Comment Create Successfully!."
+      redirect_to '/post/'+comment_param[:post_id]
+    else
+      @post = Post.find(comment_param[:post_id])
+      @posts = Post.where(user_id: @post.user_id)
+      @comments = Comment.order("id DESC").where(post_id: @post.id).where(parent_id: nil)
+      render 'show'
+    end
+  end
+
+  def comment_destroy
+    @comment = Comment.find(params[:id])
+    if @comment.destroy
+      flash[:notice] = "Comment Delete Successfully!."
+      redirect_to '/post/'+@comment.post_id.to_s
+    end
+  end
+
+  def comment_reply
+    @comment = Comment.new(comment_param)
+    if @comment.save
+      flash[:notice] = "Comment Create Successfully!."
+      redirect_to '/post/'+comment_param[:post_id]
+    else
+      @post = Post.find(comment_param[:post_id])
+      @posts = Post.where(user_id: @post.user_id)
+      @comments = Comment.order("id DESC").where(post_id: @post.id).where(parent_id: nil)
+      render 'show'
+    end
+  end
+
+  def comment_edit
+    @comment = Comment.find(params[:id])
+    if @comment.update(comment_param)
+      flash[:notice] = "Cpmment Update Successfully!."
+      redirect_to '/post/'+comment_param[:post_id]
+    else
+      @post = Post.find(comment_param[:post_id])
+      @posts = Post.where(user_id: @post.user_id)
+      @comments = Comment.order("id DESC").where(post_id: @post.id).where(parent_id: nil)
+      render 'show'
+    end
   end
 
   private
   def post_param
     params.require(:post).permit(:title, :category_id, :image, :description)
+  end
+  def comment_param
+    params.require(:comment).permit(:user_id, :post_id, :comment, :parent_id)
   end
 end

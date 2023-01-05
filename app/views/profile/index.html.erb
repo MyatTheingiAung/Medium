@@ -6,8 +6,12 @@
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            <%= image_tag "image.jpg",height: 50, class:"rounded-circle me-1 me-md-3" %>
-                            <p class="mb-0 fs-4 fs-md-3 fw-bold">Myat Theingi Aung</p>
+                            <% if current_user.image.attached? %>
+                                <img src="<%= (url_for(current_user.image)) %>" width="70px" height="70px" class="rounded-circle me-2">
+                            <% else %>
+                                <%= image_tag "user.png",height: 70, class:"rounded-circle me-2" %>
+                            <% end %>
+                            <p class="mb-0 fs-4 fs-md-3 fw-bold text-capitalize"><%= current_user.name%></p>
                         </div>
                         <div class="d-none d-md-inline-block">
                             <a href="" data-bs-toggle="modal" data-bs-target="#profileModal" class="d-inline-block"><span class="rounded-pill bg-secondary text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Edit Profile</span></a>
@@ -34,94 +38,86 @@
                     <h4 class="pb-3 border-bottom border-dark-50">Information</h4>
                     <div class="pt-4 mb-4">
                         <p class="m-0 fs-6 fw-bold pb-2">Email</p>
-                        <p>scm.myattheingiaung@gmail.com</p>
+                        <p><%= current_user.email %></p>
+                        <p><%= current_user.password %></p>
                     </div>
                     <div class="pt-2">
                         <p class="m-0 fs-6 fw-bold pb-2">Post Count</p>
-                        <span class="rounded-pill d-inline-block text-white bg-secondary mb-3 px-2">5</span>
+                        <span class="rounded-pill d-inline-block text-white bg-secondary mb-3 px-2"><%= @posts.count %></span>
                     </div>
                     <div class="pt-2 mb-4">
                         <p class="m-0 fs-6 fw-bold pb-2">Bio</p>
-                        <p class="">Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita</p>
+                        <p class=""><%= current_user.bio %></p>
                     </div>
                 </div>
             </div>
             <div class="row ps-md-5">
                  <div class="col-12">
                     <h4 class="pb-3 pt-4 border-bottom border-dark-50">My Posts</h4>
-                        <% for i in 0..2 %>
+                        <% @posts.each do |post| %>
                             <div class="pb-3 pt-4 border-bottom border-dark-50">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex align-items-center mb-3">
                                             <%= image_tag "image.jpg",height: 24, class:"rounded-circle me-2" %>
-                                            <p class="m-0"><span class="fs-6 me-1 fw-bold">Garrick McFadden</span><span class="me-1">.</span><span class="text-black-50">15 hours ago</span></p>
+                                            <p class="m-0"><span class="fs-6 me-1 fw-bold text-capitalize"><%= post.user.name %></span><span class="me-1">.</span><span class="text-black-50"><%= time_ago_in_words(post.created_at) %> ago</span></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-8">
-                                        <h4 class="fw-bolder">Beach Globe Paradise</h4>
-                                        <p class="m-0 d-none d-md-block" style="color: rgba(41, 41, 41, 1);line-height:1.7;text-align:justify;">Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita and the other well, the other flips off life violently forbidden contestants on...</p>
-                                    </div>
+                                        <a href="/post/<%= post.id %>" class="text-decoration-none text-black">
+                                            <h4 class="fw-bolder"><%= post.title %></h4>
+                                        </a>
+                                        <a href="/post/<%= post.id %>" class="text-decoration-none" style="color: rgba(41, 41, 41, 1)">
+                                            <p class="m-0 d-none d-md-block" style="line-height:1.7;text-align:justify;">
+                                                <%=raw (post.description).truncate(450) %> 
+                                            </p>
+                                        </a>
+                                    </div> 
                                     <div class="col-1"></div>
                                     <div class="col-3">
-                                        <%= image_tag "login.jfif", class:"img-fluid" %>
+                                        <% if post.image.attached? %>
+                                            <img src="<%= (url_for(post.image)) %>" width="150px" height="150px">
+                                        <% end %>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-md-9">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="align-items-end" style="color:rgba(117, 117, 117, 1);">
-                                                <span class="rounded-pill d-inline-block px-3 pb-1" style="background-color: rgba(242, 242, 242, 1);">Health</span> <span class="mx-1">.</span> <span>9 min read</span> <span class="mx-1">.</span> <span class="d-none d-md-inline-block">Selected for you</span>
+                                                <a href="/category/<%= post.category.name %>" class="rounded-pill text-decoration-none d-inline-block px-3 pb-1" style="background-color: rgba(242, 242, 242, 1);color:rgba(117, 117, 117, 1);"><%= post.category.name %></a> <span class="mx-1">.</span> <span>9 min read</span> <span class="mx-1">.</span> <span class="d-none d-md-inline-block">Selected for you</span>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center fs-2">
-                                                <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none" class="tz"><path d="M17.5 1.25a.5.5 0 0 1 1 0v2.5H21a.5.5 0 0 1 0 1h-2.5v2.5a.5.5 0 0 1-1 0v-2.5H15a.5.5 0 0 1 0-1h2.5v-2.5zm-11 4.5a1 1 0 0 1 1-1H11a.5.5 0 0 0 0-1H7.5a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-8.5a.5.5 0 0 0-1 0v7.48l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4V5.75z" fill="#000"></path></svg>
-                                                <svg class="me-3" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM8.25 12h7.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.39 12c0 .55.2 1.02.59 1.41.39.4.86.59 1.4.59.56 0 1.03-.2 1.42-.59.4-.39.59-.86.59-1.41 0-.55-.2-1.02-.6-1.41A1.93 1.93 0 0 0 6.4 10c-.55 0-1.02.2-1.41.59-.4.39-.6.86-.6 1.41zM10 12c0 .55.2 1.02.58 1.41.4.4.87.59 1.42.59.54 0 1.02-.2 1.4-.59.4-.39.6-.86.6-1.41 0-.55-.2-1.02-.6-1.41a1.93 1.93 0 0 0-1.4-.59c-.55 0-1.04.2-1.42.59-.4.39-.58.86-.58 1.41zm5.6 0c0 .55.2 1.02.57 1.41.4.4.88.59 1.43.59.57 0 1.04-.2 1.43-.59.39-.39.57-.86.57-1.41 0-.55-.2-1.02-.57-1.41A1.93 1.93 0 0 0 17.6 10c-.55 0-1.04.2-1.43.59-.38.39-.57.86-.57 1.41z" fill="#000"></path></svg>
+                                                <% if post.user_id == session[:user_id] %>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-white p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.39 12c0 .55.2 1.02.59 1.41.39.4.86.59 1.4.59.56 0 1.03-.2 1.42-.59.4-.39.59-.86.59-1.41 0-.55-.2-1.02-.6-1.41A1.93 1.93 0 0 0 6.4 10c-.55 0-1.02.2-1.41.59-.4.39-.6.86-.6 1.41zM10 12c0 .55.2 1.02.58 1.41.4.4.87.59 1.42.59.54 0 1.02-.2 1.4-.59.4-.39.6-.86.6-1.41 0-.55-.2-1.02-.6-1.41a1.93 1.93 0 0 0-1.4-.59c-.55 0-1.04.2-1.42.59-.4.39-.58.86-.58 1.41zm5.6 0c0 .55.2 1.02.57 1.41.4.4.88.59 1.43.59.57 0 1.04-.2 1.43-.59.39-.39.57-.86.57-1.41 0-.55-.2-1.02-.57-1.41A1.93 1.93 0 0 0 17.6 10c-.55 0-1.04.2-1.43.59-.38.39-.57.86-.57 1.41z" fill="#000"></path></svg>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a href="/post/<%= post.id %>/edit" class="dropdown-item text-decoration-none text-black">Edit</a>
+                                                            </li>
+                                                            <li>
+                                                                <%= link_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item text-danger text-decoration-none" %>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                <%end%>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         <% end %>
+                        <p class="mt-4"><%= paginate @posts %></p>                      
                     </div>
             </div>
         </div>
-
     </div>
 </section>
 <!--Profile Modal -->
-<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="image.png" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-body ps-5">
-            <div class="d-flex justify-content-between align-items-center pt-3 mb-5">
-                <h1 class="modal-title fs-4" id="image.png">Profile Information</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <%= form_with do |form| %>
-                <%= form.label :image, "Photo", class:"mb-3" %>
-                <div class="mb-4">
-                    <%= image_tag "image.jpg",height: 70, class:"rounded-circle me-3" %>
-                    <a class="text-decoration-none text-success fs-6 me-2 d-inline-block" href="#">Update</a>
-                    <a class="text-decoration-none text-danger" href="#">Remove</a>
-                </div>
-                <%= form.label :name, "Name", class:"mb-2" %>
-                <%= form.text_field :name, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Name", style:"outline:none;border-color:#ced4da" %>
-                <%= form.label :password, "Password", class:"mb-2" %>
-                <%= form.password_field :password, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Password", style:"outline:none;border-color:#ced4da" %>
-                <%= form.label :bio, "Bio", class:"mb-2" %>
-                <%= form.text_area :bio, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Bio", style:"outline:none;border-color:#ced4da" %>
-                <div class="d-flex justify-content-end">
-                    <a href="" class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
-                    <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>
-                </div>
-            <% end %>
-        </div>
-    </div>
-  </div>
-</div>
+<% render 'edit' %>
 <!--Pssword Modal -->
 <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="image.png" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -131,13 +127,13 @@
                 <h1 class="modal-title fs-4" id="image.png">Change Password</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <%= form_with do |form| %>
+            <%= form_with model: @user, url: '/profile/password', method: :post do |form| %>
                 <%= form.label :oldpass, "Old Password", class:"mb-2" %>
                 <%= form.password_field :oldpass, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Old Password", style:"outline:none;border-color:#ced4da" %>
-                <%= form.label :newpass, "New Password", class:"mb-2" %>
-                <%= form.password_field :newpass, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"New Password", style:"outline:none;border-color:#ced4da" %>
-                <%= form.label :confpass, "Confirm Password", class:"mb-2" %>
-                <%= form.password_field :confpass, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Confirm Password", style:"outline:none;border-color:#ced4da" %>
+                <%= form.label :password, "New Password", class:"mb-2" %>
+                <%= form.password_field :password, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"New Password", style:"outline:none;border-color:#ced4da" %>
+                <%= form.label :password_confirmation, "Confirm Password", class:"mb-2" %>
+                <%= form.password_field :password_confirmation, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Confirm Password", style:"outline:none;border-color:#ced4da" %>
                 <div class="d-flex justify-content-end">
                     <a class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
                     <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>

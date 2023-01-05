@@ -41,8 +41,8 @@
             <div class="py-5 sidebar px-4">
                 <%= image_tag "image.jpg",height: 70, class:"rounded-circle mb-3" %>
                 <p class="fs-5 fw-bold m-0 text-capitalize pb-2"><%= @post.user.name %></p>
-                <p class="txt-color fw-bold"><%= @post_count %> Posts</p>
-                <p class="txt-color">54+ autistic, undiagnosed dyslexic, sufferer of chronic migraines, writer of dark science fiction, player of Genshin Impact and Mike Pondsmith Fan. Race- Human.</p>
+                <p class="txt-color fw-bold"><%= @posts.count %> Posts</p>
+                <p class="txt-color"><%= @post.user.bio %></p>
                 <div>
                     <p class="fs-5" style="font-weight:500;">More from Medium</p>
                     <div>
@@ -70,32 +70,75 @@
         </div>
     </div>
 </section>
+<%# comment %>
 <section class="container">
     <div class="row pt-4">
         <div class="col-12">
-            <p><span class="fw-bold">Comment</span> <span class="badge ms-3 rounded-pill bg-secondary">3</span></p>
+            <p><span class="fw-bold">Comment</span> <span class="badge ms-3 rounded-pill bg-secondary"><%= @comments.count if @comments %></span></p>
             <div class="mx-md-5">
-                <%= form_with local: true do |form| %>               
+                <%= form_with model: @comment, url: '/comment', method: :post do |form| %>     
+                    <%= form.hidden_field :user_id, :value => session[:user_id] %>
+                    <%= form.hidden_field :post_id, :value => @post.id %>         
                     <p>
                         <%= form.label :comment , "Here you can left message!" ,class:"mb-2" %><br>
                         <%= form.text_area :comment, :size => "50x3" , class:"form-control w-100 comment-area", placeholder:"What are you thoughts" %>
+                        <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:comment).to_sentence %></span>
                     </p>
                     <p class="d-flex justify-content-end"> 
                         <%= form.submit "Comment", class:'btn btn-secondary' %>
                     </p>
                 <% end %>
                 <div class="mt-4">
-                    <% for i in 0..3 %>
+                    <% @comments.each do |comment| %>
                         <div class="mb-5">
                             <div class="d-flex mb-2">
                                 <%= image_tag "image.jpg",height: 50, class:"rounded-circle" %>
                                 <div class="ms-3">
-                                    <p class="mb-0 fw-bold">Chit Thu Wai</p>
-                                    <span class="txt-color">2 min ago</span> 
+                                    <p class="mb-0 fw-bold text-capitalize"><%= comment.user.name %></p>
+                                    <span class="txt-color"><%= time_ago_in_words(comment.created_at) %> ago</span> 
                                 </div>
                             </div>
-                            <p style="font-weight:500">Good! Thank You</p>
-                        </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p style="font-weight:500;background-color:#e4e5e7;" class="p-2 rounded"><%= comment.comment %></p>
+                                </div>
+                                <div class="col-12 justify-content-end">
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <a href="" class="reply-btn-<%= comment.id %> btn btn-secondary me-2">Reply</a>
+                                        <a href="" class="edit-btn-<%= comment.id %> btn btn-warning me-2">Edit</a>
+                                        <a href="/comment/<%= comment.id %>" class="btn btn-danger" data-method="delete" data-confirm="Are you sure">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <%= render partial: 'reply', locals: {comment: comment} %>
+                            <%= render partial: 'edit', locals: {comment: comment} %>                           
+                            <div class="row ms-5">
+                                <div class="col-12">
+                                    <% comment.comments.each do |comment| %>
+                                        <div class="d-flex mb-2">
+                                            <%= image_tag "image.jpg",height: 50, class:"rounded-circle" %>
+                                            <div class="ms-3">
+                                                <p class="mb-0 fw-bold text-capitalize"><%= comment.user.name %></p>
+                                                <span class="txt-color"><%= time_ago_in_words(comment.created_at) %> ago</span> 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p style="font-weight:500;background-color:#e4e5e7;" class="p-2 rounded"><%= comment.comment %></p>
+                                            </div>
+                                            <div class="col-12 justify-content-end">
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    <a href="" class="edit-btn-<%= comment.id %> btn btn-warning me-2">Edit</a>
+                                                    <a href="/comment/<%= comment.id %>" class="btn btn-danger" data-method="delete" data-confirm="Are you sure">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%= render partial: 'reply', locals: {comment: comment} %>
+                                        <%= render partial: 'edit', locals: {comment: comment} %>
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>                      
                     <% end %>
                 </div>
             </div>

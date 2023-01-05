@@ -1,7 +1,10 @@
 class AuthController < ApplicationController
   def login
+    if session[:user_id]
+      redirect_to '/'
+    end
   end
-  def userLogin
+  def user_login
     if params[:session][:email].blank?
       flash[:error_email] = "Email can't be blank"
     else
@@ -33,6 +36,13 @@ class AuthController < ApplicationController
       redirect_to(:action => :login)
     else
       render 'register'
+    end
+  end
+  def update
+    @user = User.find(current_user.id)
+    if @user.update(user_params)
+      flash[:notice] = "Post Update Successfully!."
+      redirect_to(:action => :index)
     end
   end
   def logout

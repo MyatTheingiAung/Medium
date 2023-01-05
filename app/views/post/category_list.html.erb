@@ -1,4 +1,8 @@
-<%= render 'share/login_nav' %>
+<% if logged_in? %>
+    <%= render 'share/login_nav' %>
+<% else %>
+    <%= render 'share/nav' %>
+<% end %>
 <section class="container pt-5">
   <div class="row flex-row-reverse">
     <div class="col-lg-4 col-12 pt-lg-5" style="z-index: 1;">

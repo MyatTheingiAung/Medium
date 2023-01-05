@@ -1,0 +1,26 @@
+<div class="mt-4 edit-form edit-form-<%= comment.id %> d-none">
+    <%= form_with model: @comment, url: '/comment/'+comment.id.to_s , method: :post do |form| %>  
+        <%= form.hidden_field :comment_id, :value => comment.id %> 
+        <%= form.hidden_field :user_id, :value => session[:user_id] %>
+        <%= form.hidden_field :post_id, :value => @post.id %>        
+        <p>
+            <%= form.text_area :comment, :size => "50x3", :value => comment.comment, class:"form-control w-100 comment-area", placeholder:"Your suggest comments?" %>
+            <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:comment).to_sentence %></span>
+        </p>
+        <p class="d-flex justify-content-end"> 
+            <%= form.submit "Update", class:'btn btn-primary me-2' %>
+            <a href="" class="btn btn-danger cancel-btn-<%= comment.id %>">Cancel</a>
+        </p>
+    <% end %>
+</div>
+<script>
+    $('.edit-btn-<%= comment.id %>').click(function(e){
+        e.preventDefault();
+        $('.edit-form').addClass('d-none');
+        $('.edit-form-<%= comment.id %>').toggleClass('d-none');
+    });
+    $('.cancel-btn-<%= comment.id %>').click(function(e){
+        e.preventDefault();
+        $('.edit-form-<%= comment.id %>').addClass('d-none');
+    });
+</script>
