@@ -6,9 +6,10 @@
     <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:category_id).to_sentence %></span>
 
     <%= image_tag "" , class:"image-preview d-none img-fluid rounded", style:"width:100px;height:100px" %>
+    <%# edit form %>
     <p class="db-img m-0">
         <% if form.object.image.present? %>
-        <%= image_tag form.object.image, class: "img-fluid rounded mb-4", style:"width:100px;height:100px" %>
+            <%= image_tag form.object.image, class: "img-fluid rounded mb-4", style:"width:100px;height:100px" %>
         <% end %>
     </p>
     <%= form.file_field :image, accept:"image/png,image/gif,image/jpeg,image/jpg", id:"imageInput", class:"form-control" %>

@@ -1,4 +1,5 @@
 class PostController < ApplicationController
+  before_action :find_post, only: [:edit, :update, :destroy, :show]
   def search
     @query = params[:query]
     @posts = Post.where(["title LIKE ?","%#{@query}%"]).page(params[:page])
@@ -27,6 +28,7 @@ class PostController < ApplicationController
 
   def store
     @post = Post.new(post_param)
+    @image = @post.image
     @post.user_id = session[:user_id]
     if @post.save
       flash[:notice] = "Post Create Successfully!."
@@ -38,7 +40,6 @@ class PostController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
     if @post.user_id === current_user.id
       @category = Category.find(@post.category_id)
       @category_id = @category.id
@@ -49,7 +50,6 @@ class PostController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_param)
       flash[:notice] = "Post Update Successfully!."
       redirect_to(:action => :index)
@@ -59,7 +59,6 @@ class PostController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     if @post.destroy
       flash[:notice] = "Post Delete Successfully!."
       redirect_to(:action => :index)
@@ -67,7 +66,6 @@ class PostController < ApplicationController
   end
   
   def show
-    @post = Post.find(params[:id])
     @posts = Post.where(user_id: @post.user_id)
     @comment = Comment.new
     @comments = Comment.order("id DESC").where(post_id: @post.id).where(parent_id: nil)
@@ -126,5 +124,8 @@ class PostController < ApplicationController
   end
   def comment_param
     params.require(:comment).permit(:user_id, :post_id, :comment, :parent_id)
+  end
+  def find_post
+    @post = Post.find(params[:id])
   end
 end

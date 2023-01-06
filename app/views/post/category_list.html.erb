@@ -41,7 +41,11 @@
             <div class="row">
                 <div class="col-8">
                     <div class="d-flex justify-content-start align-items-center mb-0 mb-md-2">
-                        <%= image_tag "image.jpg",height: 30, class:"rounded-circle" %>
+                        <% if post.user.image.attached? %>
+                            <img src="<%= (url_for(post.user.image)) %>" height="24px" class="rounded-circle me-2">
+                        <% else %>
+                            <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
+                        <% end %>
                         <p class="fw-bold px-2 m-0"><%= post.user.name %></p>
                     </div>
                     <p class="fw-bold fs-5 fs-md-3"><%= post.title %></p>

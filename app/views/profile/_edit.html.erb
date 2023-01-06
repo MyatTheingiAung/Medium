@@ -1,4 +1,4 @@
-<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="image.png" aria-hidden="true">
+<div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="image.png"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-body ps-5">
@@ -7,23 +7,27 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <%= form_with model: @user, url: '/profile', method: :post do |form| %>
-                <%= form.label :image_label, "Photo", class:"mb-3" %>
+                <%= form.label :image, "Photo", class:"mb-3" %>
+
                 <div class="mb-4">
                     <% if current_user.image.attached? %>
                         <img src="<%= (url_for(current_user.image)) %>" width="70px" height="70px" class="rounded-circle me-3">
                     <% else %>
                         <%= image_tag "image.jpg",height: 70, class:"rounded-circle me-3" %>
                     <% end %>
-                    <%= form.label :image, "Update", class:"text-success fs-6 me-2 d-inline-block" %>
-                    <%= form.file_field :image, accept:"image/png,image/gif,image/jpeg,image/jpg", id:"imageInput", class:"form-control" %>
-                    <a class="text-decoration-none text-danger" href="#">Remove</a>
+                    <%= form.file_field :image, class:"form-control d-none", id: 'selectedFile' %>
+                    <input type="button" class="border-0 bg-transparent text-success" value="Update" id="update-image" />
+                    <a class="text-decoration-none text-danger" href="/profile/image/<%= current_user.image.id %>" data-method="delete" data-confirm="Are you sure?">Remove</a>
                 </div>
                 <%= form.label :name, "Name", class:"mb-2" %>
                 <%= form.text_field :name, value: current_user.name, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Name", style:"outline:none;border-color:#ced4da" %>
+
                 <%= form.label :email, "Email", class:"mb-2" %>
                 <%= form.text_field :email, value: current_user.email, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Email", style:"outline:none;border-color:#ced4da" %>
+
                 <%= form.label :bio, "Bio", class:"mb-2" %>
                 <%= form.text_area :bio, value: current_user.bio, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Bio", style:"outline:none;border-color:#ced4da" %>
+
                 <div class="d-flex justify-content-end">
                     <a href="" class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
                     <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>

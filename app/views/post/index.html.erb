@@ -9,10 +9,10 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="d-flex align-items-center mb-3">
-                                        <% if current_user.image.attached? %>
-                                            <img src="<%= (url_for(current_user.image)) %>" width="70px" height="70px" class="rounded-circle me-2">
+                                        <% if post.user.image.attached? %>
+                                            <img src="<%= (url_for(post.user.image)) %>" width="32px" height="32px" class="rounded-circle me-2">
                                         <% else %>
-                                            <%= image_tag "usre.png",height: 70, class:"rounded-circle me-2" %>
+                                            <%= image_tag "user.png",height: 32, class:"rounded-circle me-2" %>
                                         <% end %>
                                         <p class="m-0"><span class="fs-6 me-1 fw-bold"><%= post.user.name %></span><span class="me-1">.</span><span class="text-black-50"><%= time_ago_in_words(post.created_at) %> ago</span></p>
                                     </div>
@@ -71,7 +71,11 @@
                     <div class="pb-4 border-bottom border-dark-50">
                         <% @last_posts.each do |last_post| %>
                             <div class="d-flex align-items-center mb-2">
-                                <%= image_tag "image.jpg",height: 24, class:"rounded-circle me-2" %>
+                               <% if last_post.user.image.attached? %>
+                                    <img src="<%= (url_for(last_post.user.image)) %>" width="24px" height="24px" class="rounded-circle me-2">
+                                <% else %>
+                                    <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
+                                <% end %>
                                 <p class="m-0"><span class="fs-6 me-1 text-capitalize"><%= last_post.user.name %></span>
                             </div>
                             <p class="fw-bolder fs-6"><%= last_post.title %></p>

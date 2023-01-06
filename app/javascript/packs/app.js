@@ -18,7 +18,11 @@ $(document).ready(function(){
             $nav.toggleClass('scrolled', $(this).scrollTop() > $blk.height());
             $start.toggleClass('set-color', $(this).scrollTop() > $blk.height());
         });
-    })
+    });
+
+    $('#update-image').on('click', function(){
+        $('#selectedFile').click();
+    });
 
     $('#imageInput').on('change', function() {
         var $image = $(".db-img");

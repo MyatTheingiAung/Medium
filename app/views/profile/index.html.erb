@@ -59,7 +59,11 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex align-items-center mb-3">
-                                            <%= image_tag "image.jpg",height: 24, class:"rounded-circle me-2" %>
+                                            <% if post.user.image.attached? %>
+                                                <img src="<%= (url_for(post.user.image)) %>" height="24px" class="rounded-circle me-2">
+                                            <% else %>
+                                                <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
+                                            <% end %>
                                             <p class="m-0"><span class="fs-6 me-1 fw-bold text-capitalize"><%= post.user.name %></span><span class="me-1">.</span><span class="text-black-50"><%= time_ago_in_words(post.created_at) %> ago</span></p>
                                         </div>
                                     </div>
@@ -117,29 +121,6 @@
     </div>
 </section>
 <!--Profile Modal -->
-<% render 'edit' %>
+<%= render 'edit' %>
 <!--Pssword Modal -->
-<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="image.png" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-body ps-5">
-            <div class="d-flex justify-content-between align-items-center pt-3 mb-5">
-                <h1 class="modal-title fs-4" id="image.png">Change Password</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <%= form_with model: @user, url: '/profile/password', method: :post do |form| %>
-                <%= form.label :oldpass, "Old Password", class:"mb-2" %>
-                <%= form.password_field :oldpass, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Old Password", style:"outline:none;border-color:#ced4da" %>
-                <%= form.label :password, "New Password", class:"mb-2" %>
-                <%= form.password_field :password, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"New Password", style:"outline:none;border-color:#ced4da" %>
-                <%= form.label :password_confirmation, "Confirm Password", class:"mb-2" %>
-                <%= form.password_field :password_confirmation, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Confirm Password", style:"outline:none;border-color:#ced4da" %>
-                <div class="d-flex justify-content-end">
-                    <a class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
-                    <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>
-                </div>
-            <% end %>
-        </div>
-    </div>
-  </div>
-</div>
+<%= render 'password' %>

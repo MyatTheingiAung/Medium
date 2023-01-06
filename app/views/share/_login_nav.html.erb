@@ -31,7 +31,7 @@
                         <% if current_user.image.attached? %>
                             <img src="<%= (url_for(current_user.image)) %>" width="30px" height="30px" class="rounded-circle">
                         <% else %>
-                            <%= image_tag "usre.png",height: 30, class:"rounded-circle" %>
+                            <%= image_tag "user.png",height: 30, class:"rounded-circle" %>
                         <% end %>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
