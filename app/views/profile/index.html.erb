@@ -6,17 +6,19 @@
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            <% if current_user.image.attached? %>
-                                <img src="<%= (url_for(current_user.image)) %>" width="70px" height="70px" class="rounded-circle me-2">
+                            <% if @user.image.attached? %>
+                                <img src="<%= (url_for(@user.image)) %>" width="70px" height="70px" class="rounded-circle me-2">
                             <% else %>
                                 <%= image_tag "user.png",height: 70, class:"rounded-circle me-2" %>
                             <% end %>
-                            <p class="mb-0 fs-4 fs-md-3 fw-bold text-capitalize"><%= current_user.name%></p>
+                            <p class="mb-0 fs-4 fs-md-3 fw-bold text-capitalize"><%= @user.name%></p>
                         </div>
-                        <div class="d-none d-md-inline-block">
-                            <a href="" data-bs-toggle="modal" data-bs-target="#profileModal" class="d-inline-block"><span class="rounded-pill bg-secondary text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Edit Profile</span></a>
-                            <a href="" data-bs-toggle="modal" data-bs-target="#passwordModal" class="d-inline-block"><span class="rounded-pill bg-success text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Change Password</span></a>
-                        </div>
+                        <% if current_user.id == @user.id %>
+                            <div class="d-none d-md-inline-block">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#profileModal" class="d-inline-block"><span class="rounded-pill bg-secondary text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Edit Profile</span></a>
+                                <a href="" data-bs-toggle="modal" data-bs-target="#passwordModal" class="d-inline-block"><span class="rounded-pill bg-success text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Change Password</span></a>
+                            </div>
+                        <% end %>
                         <div class="dropdown d-md-none">
                             <button class="btn btn-white border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.39 12c0 .55.2 1.02.59 1.41.39.4.86.59 1.4.59.56 0 1.03-.2 1.42-.59.4-.39.59-.86.59-1.41 0-.55-.2-1.02-.6-1.41A1.93 1.93 0 0 0 6.4 10c-.55 0-1.02.2-1.41.59-.4.39-.6.86-.6 1.41zM10 12c0 .55.2 1.02.58 1.41.4.4.87.59 1.42.59.54 0 1.02-.2 1.4-.59.4-.39.6-.86.6-1.41 0-.55-.2-1.02-.6-1.41a1.93 1.93 0 0 0-1.4-.59c-.55 0-1.04.2-1.42.59-.4.39-.58.86-.58 1.41zm5.6 0c0 .55.2 1.02.57 1.41.4.4.88.59 1.43.59.57 0 1.04-.2 1.43-.59.39-.39.57-.86.57-1.41 0-.55-.2-1.02-.57-1.41A1.93 1.93 0 0 0 17.6 10c-.55 0-1.04.2-1.43.59-.38.39-.57.86-.57 1.41z" fill="#000"></path></svg>
@@ -59,12 +61,16 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex align-items-center mb-3">
-                                            <% if post.user.image.attached? %>
-                                                <img src="<%= (url_for(post.user.image)) %>" height="24px" class="rounded-circle me-2">
-                                            <% else %>
-                                                <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
-                                            <% end %>
-                                            <p class="m-0"><span class="fs-6 me-1 fw-bold text-capitalize"><%= post.user.name %></span><span class="me-1">.</span><span class="text-black-50"><%= time_ago_in_words(post.created_at) %> ago</span></p>
+                                            <a href="/profile/<%= post.user.id %>">
+                                                <% if post.user.image.attached? %>
+                                                    <img src="<%= (url_for(post.user.image)) %>" height="24px" class="rounded-circle me-2">
+                                                <% else %>
+                                                    <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
+                                                <% end %>
+                                            </a>
+                                            <a href="/profile/<%= post.user.id %>" class="text-decoration-none text-black">
+                                                <p class="m-0"><span class="fs-6 me-1 fw-bold text-capitalize"><%= post.user.name %></span><span class="me-1">.</span><span class="text-black-50"><%= time_ago_in_words(post.created_at) %> ago</span></p>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -121,6 +127,56 @@
     </div>
 </section>
 <!--Profile Modal -->
-<%= render 'edit' %>
+<div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="image.png"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body ps-5">
+            <div class="d-flex justify-content-between align-items-center pt-3 mb-5">
+                <h1 class="modal-title fs-4" id="image.png">Profile Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <%= form_with model: @user, url: '/profile', method: :post do |form| %>
+                <%= form.label :image, "Photo", class:"mb-3" %>
+
+                <div class="mb-4">
+                    <% if @user.image.attached? %>
+                        <img src="<%= (url_for(@user.image)) %>" width="70px" height="70px" class="rounded-circle me-3">
+                    <% else %>
+                        <%= image_tag "image.jpg",height: 70, class:"rounded-circle me-3" %>
+                    <% end %>
+                    <%= form.file_field :image, class:"form-control d-none", id: 'selectedFile' %>
+                    <input type="button" class="border-0 bg-transparent text-success" value="Update" id="update-image" />
+                    <a class="text-decoration-none text-danger" href="/profile/image/<%= @user.image.id %>" data-method="delete" data-confirm="Are you sure?">Remove</a>
+                </div>
+                <%= form.label :name, "Name", class:"mb-2" %>
+                <%= form.text_field :name, value: @user.name, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Name", style:"outline:none;border-color:#ced4da" %>
+
+                <%= form.label :email, "Email", class:"mb-2" %>
+                <%= form.text_field :email, value: @user.email, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Email", style:"outline:none;border-color:#ced4da" %>
+
+                <%= form.label :bio, "Bio", class:"mb-2" %>
+                <%= form.text_area :bio, value: @user.bio, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Bio", style:"outline:none;border-color:#ced4da" %>
+
+                <div class="d-flex justify-content-end">
+                    <a href="" class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
+                    <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+  </div>
+</div>
+<% if  @user.errors.present? %>
+    <ul>
+    <% @user.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+    <% end %>
+    </ul>
+    <script type="text/javascript">
+        $(window).on('load', function() { 
+            $('#profileModal').modal('show');
+        });
+    </script>
+<% end  %>
 <!--Pssword Modal -->
 <%= render 'password' %>

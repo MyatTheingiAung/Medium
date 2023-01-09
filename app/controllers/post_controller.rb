@@ -28,7 +28,9 @@ class PostController < ApplicationController
 
   def store
     @post = Post.new(post_param)
-    @image = @post.image
+    if !params[:post][:image].blank?
+      @post.image.attach(params[:post][:image])
+    end
     @post.user_id = session[:user_id]
     if @post.save
       flash[:notice] = "Post Create Successfully!."
@@ -54,6 +56,7 @@ class PostController < ApplicationController
       flash[:notice] = "Post Update Successfully!."
       redirect_to(:action => :index)
     else
+      @category_id = params[:post][:category_id] 
       render 'edit'
     end
   end
@@ -89,6 +92,8 @@ class PostController < ApplicationController
     if @comment.destroy
       flash[:notice] = "Comment Delete Successfully!."
       redirect_to '/post/'+@comment.post_id.to_s
+    else
+      render json: 'ma ya buus'
     end
   end
 
@@ -120,7 +125,7 @@ class PostController < ApplicationController
 
   private
   def post_param
-    params.require(:post).permit(:title, :category_id, :image, :description)
+    params.require(:post).permit(:title, :category_id, :description)
   end
   def comment_param
     params.require(:comment).permit(:user_id, :post_id, :comment, :parent_id)

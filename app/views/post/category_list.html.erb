@@ -41,26 +41,33 @@
             <div class="row">
                 <div class="col-8">
                     <div class="d-flex justify-content-start align-items-center mb-0 mb-md-2">
-                        <% if post.user.image.attached? %>
-                            <img src="<%= (url_for(post.user.image)) %>" height="24px" class="rounded-circle me-2">
-                        <% else %>
-                            <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
-                        <% end %>
-                        <p class="fw-bold px-2 m-0"><%= post.user.name %></p>
+                        <a href="/profile/<%= post.user.id %>" class="text-decoration-none">
+                            <% if post.user.image.attached? %>
+                                <img src="<%= (url_for(post.user.image)) %>" height="24px" class="rounded-circle me-2">
+                            <% else %>
+                                <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
+                            <% end %>
+                        </a>
+                        <a href="/profile/<%= post.user.id %>" class="text-decoration-none text-black">
+                            <p class="fw-bold px-2 m-0"><%= post.user.name %></p>
+                        </a>                 
                     </div>
-                    <p class="fw-bold fs-5 fs-md-3"><%= post.title %></p>
-                    <p class="fs-6 d-none d-md-block" style="color:rgba(117, 117, 117, 1);font-weight:500;"><%=raw post.description %></p>
+                    <a href="/post/<%= post.id %>" class="text-decoration-none text-black">
+                        <p class="fw-bold fs-5 fs-md-3"><%= post.title %></p>
+                    </a>
+                    <a href="/post/<%= post.id %>" class="text-decoration-none" style="color: rgba(41, 41, 41, 1)">
+                        <p class="fs-6 d-none d-md-block" style="color:rgba(117, 117, 117, 1);font-weight:500;"><%=raw post.description %></p>
+                    </a>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="align-items-end" style="color:rgba(117, 117, 117, 1);">
                             <span><%= time_ago_in_words(post.created_at) %></span> <span class="mx-1">.</span> <span>9 min read</span> <span class="mx-1">.</span> <a href="/category/<%= post.category.name %>" class="d-none text-decoration-none d-md-inline-block rounded-pill d-inline-block px-3 pb-1" style="background-color: rgba(242, 242, 242, 1);color:rgba(117, 117, 117, 1);"><%= post.category.name %></a>
                         </div>
-                        <div class="fs-2 txt-color more-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="tz"><path d="M17.5 1.25a.5.5 0 0 1 1 0v2.5H21a.5.5 0 0 1 0 1h-2.5v2.5a.5.5 0 0 1-1 0v-2.5H15a.5.5 0 0 1 0-1h2.5v-2.5zm-11 4.5a1 1 0 0 1 1-1H11a.5.5 0 0 0 0-1H7.5a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-8.5a.5.5 0 0 0-1 0v7.48l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4V5.75z" fill="#000"></path></svg>
-                        </div>
                     </div>
                 </div>
                 <div class="col-4">
-                    <%= image_tag "one.png", class:"product-img img-fluid" %>
+                    <% if post.image.attached? %>
+                        <img src="<%= (url_for(post.image)) %>" class="img-fluid mb-4" width="110px" height="110px">
+                    <% end %>
                 </div>
             </div>
         </div>

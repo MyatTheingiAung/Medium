@@ -15,6 +15,8 @@
 <script>
     $('#imageInput').on('change', function() {
         $input = $(this);
+        var $image = $(".db-img");
+        $image.css('display','none');
         if($input.val().length > 0) {
             fileReader = new FileReader();
             fileReader.onload = function (data) {

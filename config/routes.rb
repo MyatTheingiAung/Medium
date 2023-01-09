@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  # match '*unmatched', to: 'application#not_found_method', via: :all
+  root 'post#index' 
   get 'comment/index'
-  get 'profile/index'
+  get 'profile/:id', to: 'profile#index'
   post 'profile', to: 'profile#update'
   delete 'profile', to: 'profile#image_destroy'
   patch 'profile/password', to: 'profile#change_password'
@@ -17,7 +19,6 @@ Rails.application.routes.draw do
   get 'post/:id', to: "post#show"
   get 'category/:name', to: "post#category_list"
   get 'search', to: "post#search"
-  root 'post#index' 
   post 'comment', to: "post#comment_store"
   post 'comment/reply', to: "post#comment_reply"
   post 'comment/:id', to: "post#comment_edit"

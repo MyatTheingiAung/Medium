@@ -13,27 +13,35 @@
         </div>
     </div>
 </section>
-<%= render 'share/login_nav' %>
+<% if logged_in? %>
+    <%= render 'share/login_nav' %>
+<% else %>
+    <%= render 'share/nav' %>
+<% end %>
 <section class="container">
     <div class="row border-bottom">
         <div class="blk col-12 col-lg-8 border mb-5 border-top-0 border-start-0 border-bottom-0 pt-5 pe-3">
             <div class="d-flex mb-3 me-4 justify-content-between align-items-center">
                 <div class="d-flex">
-                    <% if @post.user.image.attached? %>
-                        <img src="<%= (url_for(@post.user.image)) %>" width="40px" height="40px" class="rounded-circle me-2">
-                    <% else %>
-                        <%= image_tag "user.png",height: 40, class:"rounded-circle me-2" %>
-                    <% end %>
+                    <a href="/post/<%= @post.user.id%>">
+                        <% if @post.user.image.attached? %>
+                            <img src="<%= (url_for(@post.user.image)) %>" width="40px" height="40px" class="rounded-circle me-2">
+                        <% else %>
+                            <%= image_tag "user.png",height: 40, class:"rounded-circle me-2" %>
+                        <% end %>
+                    </a>
                     <div class="ms-3">
-                        <p class="mb-0 text-capitalize fw-bold"><%= @post.user.name %></p>
-                        <span class="txt-color"><%= time_ago_in_words(@post.created_at) %></span> <span>.</span> <span class="txt-color">7 min read</span> <span>.</span>
-                    </div>
+                        <a href="/profile/<%= @post.user.id %>" class="text-decoration-none text-black"><p class="mb-0 text-capitalize fw-bold"><%= @post.user.name %></p></a>
+                        <a href="/profile/<%= @post.user.id %>" class="text-decoration-none text-black"><span class="txt-color"><%= time_ago_in_words(@post.created_at) %></span> <span>.</span> <span class="txt-color">7 min read</span> <span>.</span></a>
+                    </div>          
                 </div>
-                <% if current_user.id == @post.user.id %>
-                    <div class="me-4">
-                        <a href="/post/<%= @post.id %>/edit" class="badge px-3 py-2 text-decoration-none text-white rounded-pill bg-success">Edit</a>
-                        <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
-                    </div>
+                <% if current_user %>
+                    <% if current_user.id == @post.user.id %>
+                        <div class="me-4">
+                            <a href="/post/<%= @post.id %>/edit" class="badge px-3 py-2 text-decoration-none text-white rounded-pill bg-success">Edit</a>
+                            <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
+                        </div>
+                    <% end %>
                 <% end %>
             </div>
             <% if @post.image.attached? %>
@@ -61,19 +69,25 @@
                             <div class="row mb-3">
                                 <div class="col-9">
                                     <div class="d-flex align-items-center mb-2">
+                                    <a href="/profile/<%= post.user.id %>" class="text-decoration-none text-black">
                                         <% if post.user.image.attached? %>
                                             <img src="<%= (url_for(post.user.image)) %>" width="20px" height="20px" class="rounded-circle me-2">
                                         <% else %>
                                             <%= image_tag "user.png",height: 20, class:"rounded-circle me-2" %>
                                         <% end %>
-                                        <div class="ms-2">
+                                    </a>
+                                    <div class="ms-2">
+                                        <a href="/profile/<%= post.user.id %>" class="text-decoration-none text-black">
                                             <p class="mb-0 text-capitalize"><%= post.user.name %></p>
-                                        </div>
+                                        </a>
                                     </div>
-                                    <p class="fw-bold fs-6" style="letter-spacing:1px;"><%= post.title %></p>
+                                    </div>
+                                    <a href="/post/<%= post.id %>" class="text-decoration-none text-black">
+                                        <p class="fw-bold fs-6" style="letter-spacing:1px;"><%= post.title %></p>
+                                    </a>
                                 </div>
                                 <div class="col-3 d-flex justify-content-end">
-                                    <% if @post.image.attached? %>
+                                    <% if post.image.attached? %>
                                         <img src="<%= (url_for(post.image)) %>" class="img-fluid mb-4" width="56px" height="56px">
                                     <% end %>
                                 </div>
@@ -91,6 +105,7 @@
         <div class="col-12">
             <p><span class="fw-bold">Comment</span> <span class="badge ms-3 rounded-pill bg-secondary"><%= @comments.count if @comments %></span></p>
             <div class="mx-md-5">
+            <% if logged_in? %>
                 <%= form_with model: @comment, url: '/comment', method: :post do |form| %>     
                     <%= form.hidden_field :user_id, :value => session[:user_id] %>
                     <%= form.hidden_field :post_id, :value => @post.id %>         
@@ -103,24 +118,28 @@
                         <%= form.submit "Comment", class:'btn btn-secondary' %>
                     </p>
                 <% end %>
+            <% end %>
                 <div class="mt-4">
                     <% @comments.each do |comment| %>
                         <div class="mb-5">
                             <div class="d-flex mb-2">
+                            <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black">
                                 <% if comment.user.image.attached? %>
                                     <img src="<%= (url_for(comment.user.image)) %>" height="50px" class="rounded-circle me-2">
                                 <% else %>
                                     <%= image_tag "user.png",height: 50, class:"rounded-circle me-2" %>
                                 <% end %>
-                                <div class="ms-3">
-                                    <p class="mb-0 fw-bold text-capitalize"><%= comment.user.name %></p>
-                                    <span class="txt-color"><%= time_ago_in_words(comment.created_at) %> ago</span> 
-                                </div>
+                            </a>
+                            <div class="ms-3">
+                                <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black"><p class="mb-0 fw-bold text-capitalize"><%= comment.user.name %></p></a>
+                                <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black"><span class="txt-color"><%= time_ago_in_words(comment.created_at) %> ago</span></a>
+                            </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <p style="font-weight:500;background-color:#e4e5e7;" class="p-2 rounded"><%= comment.comment %></p>
-                                </div>                               
+                                </div>   
+                                <% if logged_in? %>                            
                                     <div class="col-12 justify-content-end">
                                         <div class="d-flex justify-content-end align-items-center">
                                             <a href="" class="reply-btn-<%= comment.id %> btn btn-secondary me-2">Reply</a>
@@ -129,7 +148,8 @@
                                                 <a href="/comment/<%= comment.id %>" class="btn btn-danger" data-method="delete" data-confirm="Are you sure">Delete</a>
                                             <% end %>
                                         </div>
-                                    </div>                               
+                                    </div>   
+                                <% end %>                            
                             </div>
                             <%= render partial: 'reply', locals: {comment: comment} %>
                             <%= render partial: 'edit', locals: {comment: comment} %>                           
@@ -137,27 +157,31 @@
                                 <div class="col-12">
                                     <% comment.comments.each do |comment| %>
                                         <div class="d-flex mb-2">
-                                            <% if comment.user.image.attached? %>
-                                                <img src="<%= (url_for(comment.user.image)) %>" height="50px" class="rounded-circle me-2">
-                                            <% else %>
-                                                <%= image_tag "user.png",height: 50, class:"rounded-circle me-2" %>
-                                            <% end %>
+                                            <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black">
+                                                <% if comment.user.image.attached? %>
+                                                    <img src="<%= (url_for(comment.user.image)) %>" height="50px" class="rounded-circle me-2">
+                                                <% else %>
+                                                    <%= image_tag "user.png",height: 50, class:"rounded-circle me-2" %>
+                                                <% end %>
+                                            </a>
                                             <div class="ms-3">
-                                                <p class="mb-0 fw-bold text-capitalize"><%= comment.user.name %></p>
-                                                <span class="txt-color"><%= time_ago_in_words(comment.created_at) %> ago</span> 
+                                                <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black"><p class="mb-0 fw-bold text-capitalize"><%= comment.user.name %></p></a>
+                                                <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black"><span class="txt-color"><%= time_ago_in_words(comment.created_at) %> ago</span></a>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-12">
                                                 <p style="font-weight:500;background-color:#e4e5e7;" class="p-2 rounded"><%= comment.comment %></p>
                                             </div>
-                                            <% if current_user.id == comment.user_id %>
-                                                <div class="col-12 justify-content-end">
-                                                    <div class="d-flex justify-content-end align-items-center">
-                                                        <a href="" class="edit-btn-<%= comment.id %> btn btn-warning me-2">Edit</a>
-                                                        <a href="/comment/<%= comment.id %>" class="btn btn-danger" data-method="delete" data-confirm="Are you sure">Delete</a>
+                                            <% if logged_in? %>
+                                                <% if current_user.id == comment.user_id %>
+                                                    <div class="col-12 justify-content-end">
+                                                        <div class="d-flex justify-content-end align-items-center">
+                                                            <a href="" class="edit-btn-<%= comment.id %> btn btn-warning me-2">Edit</a>
+                                                            <a href="/comment/<%= comment.id %>" class="btn btn-danger" data-method="delete" data-confirm="Are you sure">Delete</a>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                <% end %>
                                             <% end %>
                                         </div>
                                         <%= render partial: 'reply', locals: {comment: comment} %>

@@ -27,7 +27,11 @@ class AuthController < ApplicationController
     end
   end
   def register
-    @user = User.new
+    if !current_user
+      @user = User.new
+    else
+      redirect_to '/'
+    end
   end
   def create
     @user = User.new(user_params)

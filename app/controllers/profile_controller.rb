@@ -1,7 +1,11 @@
 class ProfileController < ApplicationController
+  before_action :find_post, only: [:update, :change_password]
+  
   def index
-    @posts = Post.where(user_id: current_user.id).page(params[:page])
-    @user = current_user
+    if !require_user
+      @user = User::find(params[:id])
+      @posts = Post.where(user_id: params[:id]).page(params[:page])
+    end
   end
 
   def update
@@ -10,7 +14,7 @@ class ProfileController < ApplicationController
       flash[:notice] = "User Update Successfully!."
       redirect_to(:action => :index)
     else
-      @posts = Post.where(user_id: current_user.id).page(params[:page])
+      render 'index'
     end
   end
 
@@ -22,7 +26,6 @@ class ProfileController < ApplicationController
         flash[:notice] = "Change Password Successfully!."
       end
     else
-      @posts = Post.where(user_id: current_user.id).page(params[:page])
       flash[:alert] = "Change Password Failed!"
       render 'index'
     end
@@ -40,5 +43,8 @@ class ProfileController < ApplicationController
   end
   def pass_params
     params.require(:user).permit(:password, :password_confirmation)
+  end
+  def find_post
+    @posts = Post.where(user_id: current_user.id).page(params[:page])
   end
 end

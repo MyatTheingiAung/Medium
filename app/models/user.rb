@@ -2,7 +2,7 @@ class User < ApplicationRecord
     has_secure_password 
     has_many :posts
     has_many :comments
-    has_one_attached :image, dependent: :destroy
+    has_one_attached :image, dependent: :destroyca
     validates :name, presence: true
     validates :email, presence: true, uniqueness: true
     validates :password, presence: true, on: :create

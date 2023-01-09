@@ -31,6 +31,7 @@ gem 'jquery-turbolinks'
 gem 'simple_form'
 gem 'kaminari'
 # Use Active Storage variant
+gem 'activestorage'
 gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb

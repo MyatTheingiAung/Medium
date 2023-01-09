@@ -23,19 +23,4 @@ $(document).ready(function(){
     $('#update-image').on('click', function(){
         $('#selectedFile').click();
     });
-
-    $('#imageInput').on('change', function() {
-        var $image = $(".db-img");
-        $image.css('display','none');
-        $input = $(this);
-        if($input.val().length > 0) {
-            fileReader = new FileReader();
-            fileReader.onload = function (data) {
-            $('.image-preview').attr('src', data.target.result);
-            }
-            fileReader.readAsDataURL($input.prop('files')[0]);
-            $('.image-preview').removeClass('d-none');
-            $('.image-preview').addClass('mb-4');
-        }
-    });
 });

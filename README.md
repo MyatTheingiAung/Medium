@@ -1,24 +1,49 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Medium Blog
 
-Things you may want to cover:
+## Requirements
+- Ruby 2.6.9
+- MySQL 5.7 or 8
 
-* Ruby version
+## Installation
 
-* System dependencies
+Clone the repo locally:
+```
+https://github.com/MyatTheingiAung/Medium.git
+```
 
-* Configuration
+`cd` into cloned directory and install dependencies. run below command one by one.
+```bash
+npm install
+bundle install
+```
 
-* Database creation
+## Database Migration
 
-* Database initialization
+Run database creations:
+```
+rails db:create
+```
 
-* How to run the test suite
+Run database migrations:
+```
+rails db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Run database seeder:
+```
+rails db:seed
+```
 
-* Deployment instructions
+## Server Run
 
-* ...
+Run the dev server:
+```
+rails serve
+```
+
+Visit below url:
+```
+http://127.0.0.1:3000/
+```

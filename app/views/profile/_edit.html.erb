@@ -21,13 +21,16 @@
                 </div>
                 <%= form.label :name, "Name", class:"mb-2" %>
                 <%= form.text_field :name, value: current_user.name, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Name", style:"outline:none;border-color:#ced4da" %>
+                <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:name).to_sentence %></span>
 
                 <%= form.label :email, "Email", class:"mb-2" %>
                 <%= form.text_field :email, value: current_user.email, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Email", style:"outline:none;border-color:#ced4da" %>
+                <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:email).to_sentence %></span>
 
                 <%= form.label :bio, "Bio", class:"mb-2" %>
                 <%= form.text_area :bio, value: current_user.bio, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Bio", style:"outline:none;border-color:#ced4da" %>
-
+                <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:bio).to_sentence %></span>
+                
                 <div class="d-flex justify-content-end">
                     <a href="" class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
                     <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>
@@ -37,3 +40,4 @@
     </div>
   </div>
 </div>
+
