@@ -16,6 +16,7 @@
     var $image = $(".db-img");
     $image.css('display','none');
     $('#imageInput').on('change', function() {
+        $('.cached-img').addClass('d-none');
         $input = $(this);
         if($input.val().length > 0) {
             fileReader = new FileReader();

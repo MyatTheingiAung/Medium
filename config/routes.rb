@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  # match '*unmatched', to: 'application#not_found_method', via: :all
   root 'post#index' 
   get 'comment/index'
   get 'profile/:id', to: 'profile#index'
   post 'profile', to: 'profile#update'
   delete 'profile', to: 'profile#image_destroy'
-  patch 'profile/password', to: 'profile#change_password'
+  patch 'profile/password', to: 'profile#password'
   delete 'profile/image/:id', to: 'profile#user_image_delete'
   get 'login', to: 'auth#login'
   post 'login', to: 'auth#user_login'
@@ -23,5 +22,7 @@ Rails.application.routes.draw do
   post 'comment/reply', to: "post#comment_reply"
   post 'comment/:id', to: "post#comment_edit"
   delete 'comment/:id', to: "post#comment_destroy"
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

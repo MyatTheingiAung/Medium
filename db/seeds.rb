@@ -54,29 +54,26 @@ User.create!([{
 
 p "Created #{User.count} users"
 
+uploader = ImageUploader.new(:store)
+file = File.new(Rails.root.join('app/assets/images/one.png'))
+uploaded_file = uploader.upload(file)
+
 post = Post.new(
     title: "Beach Globe Paradise",
     category_id: 1,
     user_id: 1,
-    description: "Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita and the other well, the other flips off life violently forbidden contestants on..."
+    description: "Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita and the other well, the other flips off life violently forbidden contestants on...",
+    image_data: uploaded_file.to_json
 )
-post.image.attach(
-    io: File.open(Rails.root.join('app/assets/images/image.jpg')), 
-    filename: 'avatar.jpg', 
-    content_type: 'image/jpeg'
-)
+
 post.save!
 
 post = Post.new(
     title: "The Power of Indulging Your Weird",
     category_id: 2,
     user_id: 2,
-    description: "Back in 1964, the microbiologist Thomas Brock visited Yellowstone National Park to do some sightseeing. He was on a long car ride, and wanted to break up the monotony. Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita and the other well, the other flips off life violently forbidden contestants on..."
-)
-post.image.attach(
-    io: File.open(Rails.root.join('app/assets/images/image.jpg')), 
-    filename: 'avatar.jpg', 
-    content_type: 'image/jpeg'
+    description: "Back in 1964, the microbiologist Thomas Brock visited Yellowstone National Park to do some sightseeing. He was on a long car ride, and wanted to break up the monotony. Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita and the other well, the other flips off life violently forbidden contestants on...",
+    image_data: uploaded_file.to_json
 )
 post.save!
 
@@ -94,7 +91,7 @@ Comment.create!([{
 }
 ])
 
-p "Created #{Comment.count} posts"
+p "Created #{Comment.count} comments"
 
 
 

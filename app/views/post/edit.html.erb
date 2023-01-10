@@ -15,6 +15,7 @@
 <script>
     $('#imageInput').on('change', function() {
         $input = $(this);
+        $('.cached-img').addClass('d-none');
         var $image = $(".db-img");
         $image.css('display','none');
         if($input.val().length > 0) {

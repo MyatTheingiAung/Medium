@@ -1,4 +1,5 @@
 class PostController < ApplicationController
+
   before_action :find_post, only: [:edit, :update, :destroy, :show]
   def search
     @query = params[:query]
@@ -28,9 +29,6 @@ class PostController < ApplicationController
 
   def store
     @post = Post.new(post_param)
-    if !params[:post][:image].blank?
-      @post.image.attach(params[:post][:image])
-    end
     @post.user_id = session[:user_id]
     if @post.save
       flash[:notice] = "Post Create Successfully!."
@@ -125,7 +123,7 @@ class PostController < ApplicationController
 
   private
   def post_param
-    params.require(:post).permit(:title, :category_id, :description)
+    params.require(:post).permit(:title, :category_id, :image, :description)
   end
   def comment_param
     params.require(:comment).permit(:user_id, :post_id, :comment, :parent_id)

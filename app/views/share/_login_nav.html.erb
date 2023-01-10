@@ -28,8 +28,8 @@
             <li class="nav-item list-unstyled">
                 <div class="dropdown border border-0">
                     <a class="btn dropdown-toggle border border-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <% if current_user.image.attached? %>
-                            <img src="<%= (url_for(current_user.image)) %>" width="30px" height="30px" class="rounded-circle">
+                        <% if current_user.image %>
+                            <%= image_tag current_user.image_url, height: 30 , width: 30, class: "rounded-circle" %>
                         <% else %>
                             <%= image_tag "user.png",height: 30, class:"rounded-circle" %>
                         <% end %>

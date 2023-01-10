@@ -14,3 +14,6 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 global.toastr = require("toastr")
+
+import $ from 'jquery'
+global.$ = jQuery

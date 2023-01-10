@@ -85,8 +85,11 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
+    content_disposition (1.0.0)
     crass (1.0.6)
     date (3.3.3)
+    down (5.4.0)
+      addressable (~> 2.8)
     erubi (1.11.0)
     execjs (2.8.1)
     faker (2.22.0)
@@ -212,6 +215,9 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    shrine (3.4.0)
+      content_disposition (~> 1.0)
+      down (~> 5.1)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -257,7 +263,6 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  activestorage
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   bootstrap (~> 5.2.3)
@@ -266,7 +271,7 @@ DEPENDENCIES
   faker
   font-awesome-rails
   font-awesome-sass (~> 6.2.1)
-  image_processing (~> 1.2)
+  image_processing (~> 1.12, >= 1.12.1)
   jbuilder (~> 2.7)
   jquery-rails
   jquery-turbolinks
@@ -277,6 +282,7 @@ DEPENDENCIES
   rails (~> 6.1.7)
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
+  shrine (~> 3.3)
   simple_form
   turbolinks (~> 5)
   tzinfo-data

@@ -6,15 +6,23 @@
     <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:category_id).to_sentence %></span>
 
     <%= image_tag "" ,id:"", class:"image-preview d-none img-fluid rounded", style:"width:100px;height:100px" %>
-    <%# edit form %>
-    <p class="db-img m-0">
-        <%= image_tag form.object.image, class: "img-fluid rounded mb-4", style:"width:100px;height:100px" if form.object.image.present? %>
-    </p>
+    
+    <% if form.object.cached_image_data %>
+        <%= image_tag form.object.image_url, class:"img-fluid cached-img rounded mb-4", style:"width:100px;height:100px" %>
+    <% elsif form.object.image %>
+        <%= image_tag form.object.image_url, class:"img-fluid cached-img rounded mb-4", style:"width:100px;height:100px" %>
+    <% end %>
+    <%= form.hidden_field :image, value: form.object.cached_image_data %>
     <%= form.file_field :image, accept:"image/png,image/gif,image/jpeg,image/jpg", id:"imageInput", class:"form-control" %>
     <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:image).to_sentence %></span>
 
     <%= form.text_area :description, id:"summernote" %>
-    <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:description).to_sentence %></span>
+    <% if form.object.errors.include?(:description) %>
+        <%= form.object.errors.full_messages_for(:description).each do |err| %>
+            <span class="d-block text-danger fw-bold" style="font-size:14px;"><%= err %></span>
+            <% break %>
+        <% end %>
+    <% end %>
 
-    <%= form.submit 'Publish' , class:"btn btn-secondary" %>
+    <%= form.submit 'Publish' , class:"btn mt-4 btn-secondary" %>
 <% end %>

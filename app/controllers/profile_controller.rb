@@ -18,16 +18,19 @@ class ProfileController < ApplicationController
     end
   end
 
-  def change_password
+  def password
     @user = current_user
-    password = params[:user][:current_password]
-    if BCrypt::Password.new(current_user.password_digest) == password
-      if current_user.update(pass_params)
-        flash[:notice] = "Change Password Successfully!."
+    password = params
+    if @user && @user.authenticate(params[:user][:current_password])
+      respond_to do |format|
+        if current_user.update(pass_params)
+          format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change successfully.' }
+        else
+          format.js
+          # format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change failed' }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
-    else
-      flash[:alert] = "Change Password Failed!"
-      render 'index'
     end
   end
 
