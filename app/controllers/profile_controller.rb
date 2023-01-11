@@ -10,26 +10,53 @@ class ProfileController < ApplicationController
 
   def update
     @user = current_user 
-    if @user.update(user_params)
-      flash[:notice] = "User Update Successfully!."
-      redirect_to(:action => :index)
-    else
-      render 'index'
+    
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'User Update Successfully!.' }
+      else
+        format.js
+        format.html { render :index , notice: 'User Update Failed!' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def password
     @user = current_user
-    password = params
-    if @user && @user.authenticate(params[:user][:current_password])
-      respond_to do |format|
-        if current_user.update(pass_params)
-          format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change successfully.' }
-        else
-          format.js
-          # format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change failed' }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
+    if params[:user][:current_password].blank?
+      flash[:current] = "Old password can't blank"
+    elsif !@user.authenticate(params[:user][:current_password])
+      flash[:current] = ""
+      flash[:not_user] = "Credential do not match our record"
+    else
+      flash[:not_user] = ""
+    end
+    if params[:user][:password].blank?
+      flash[:password] = "New password can't blank"
+    else
+      flash[:password] = ""
+    end
+    if params[:user][:password_confirmation].blank?
+      flash[:password_confirmation] = "Password confirmation can't blank"
+    else
+      flash[:password_confirmation] = ""
+    end
+    if !params[:user][:password].blank? && !params[:user][:password_confirmation].blank?
+      if params[:user][:password] != params[:user][:password_confirmation]
+        flash[:unmatch_password] = "Password and password confirmation don't match"
+      else
+        flash[:unmatch_password] = ""
+      end
+    end
+    
+    respond_to do |format|
+      if @user.update(pass_params)
+        format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change successfully.' }
+      else
+        format.js
+        format.html { render :index , notice: 'Password change failed' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

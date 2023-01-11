@@ -1,24 +1,22 @@
 class PostController < ApplicationController
 
   before_action :find_post, only: [:edit, :update, :destroy, :show]
-  def search
-    @query = params[:query]
-    @posts = Post.where(["title LIKE ?","%#{@query}%"]).page(params[:page])
-    @categories = Category.all
-    @last_posts = Post.last(3)
-    render 'index'
-  end
+  before_action :comment, only: [:comment_store, :comment_reply, :comment_edit]
+  before_action :post_index, only: [:index]
 
   def category_list
     @categories = Category.all
-    @category = Category.where(name: params[:name]).first
-    @posts = Post.where(category_id: @category.id).all
+    category = Category.where(name: params[:name]).first
+    @posts = Post.where(category_id: category.id).all
   end
 
   def index
-    @posts = Post.order("id DESC").page(params[:page])
-    @categories = Category.all
-    @last_posts = Post.order("id DESC").first(3)
+    if !params[:query].blank?
+      query = params[:query]
+      @posts = Post.where(["title LIKE ?","%#{query}%"]).page(params[:page])
+    else
+      @posts = Post.order("id DESC").page(params[:page])
+    end  
   end
 
   def create
@@ -78,9 +76,6 @@ class PostController < ApplicationController
       flash[:notice] = "Comment Create Successfully!."
       redirect_to '/post/'+comment_param[:post_id]
     else
-      @post = Post.find(comment_param[:post_id])
-      @posts = Post.where(user_id: @post.user_id)
-      @comments = Comment.order("id DESC").where(post_id: @post.id).where(parent_id: nil)
       render 'show'
     end
   end
@@ -90,8 +85,6 @@ class PostController < ApplicationController
     if @comment.destroy
       flash[:notice] = "Comment Delete Successfully!."
       redirect_to '/post/'+@comment.post_id.to_s
-    else
-      render json: 'ma ya buus'
     end
   end
 
@@ -101,9 +94,6 @@ class PostController < ApplicationController
       flash[:notice] = "Comment Create Successfully!."
       redirect_to '/post/'+comment_param[:post_id]
     else
-      @post = Post.find(comment_param[:post_id])
-      @posts = Post.where(user_id: @post.user_id)
-      @comments = Comment.order("id DESC").where(post_id: @post.id).where(parent_id: nil)
       render 'show'
     end
   end
@@ -114,9 +104,6 @@ class PostController < ApplicationController
       flash[:notice] = "Cpmment Update Successfully!."
       redirect_to '/post/'+comment_param[:post_id]
     else
-      @post = Post.find(comment_param[:post_id])
-      @posts = Post.where(user_id: @post.user_id)
-      @comments = Comment.order("id DESC").where(post_id: @post.id).where(parent_id: nil)
       render 'show'
     end
   end
@@ -131,4 +118,14 @@ class PostController < ApplicationController
   def find_post
     @post = Post.find(params[:id])
   end
+  def comment
+    post = Post.find(comment_param[:post_id])
+    @posts = Post.where(user_id: post.user_id)
+    @comments = Comment.order("id DESC").where(post_id: post.id).where(parent_id: nil)
+  end
+  def post_index
+    @categories = Category.all
+    @last_posts = Post.order("id DESC").first(3)
+  end
+
 end

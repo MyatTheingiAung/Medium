@@ -1,0 +1,8 @@
+<% if @user.errors.any? %>
+    <% if @user.errors.include?(:name) %>
+        $('#nameError').html("<%= @user.errors.full_messages_for(:name).each do |err| %><%= err %><% break %><% end %>")
+    <% end %>
+    <% if @user.errors.include?(:bio) %>
+        $('#bioError').html("<%= @user.errors.full_messages_for(:bio).each do |err| %><%= err %><% break %><% end %>")
+    <% end %>
+<% end %>

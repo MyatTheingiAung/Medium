@@ -25,14 +25,19 @@
   display: none !important;
 }
 
-div#profileModal {
-  z-index: 1000003 !important;
-}
-
 .search-div{
   background: rgba(250, 250, 250, 1);
   border-radius: 20px;
   width: 240px;
+}
+
+.search-sp-div{
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+.search-sp-div input{
+  outline: none;
 }
 
 .search-div .search{
@@ -54,4 +59,3 @@ div#profileModal {
     height: 0;
   }
 }
-

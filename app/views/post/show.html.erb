@@ -21,7 +21,7 @@
 <section class="container">
     <div class="row border-bottom">
         <div class="blk col-12 col-lg-8 border mb-5 border-top-0 border-start-0 border-bottom-0 pt-5 pe-3">
-            <div class="d-flex mb-3 me-4 justify-content-between align-items-center">
+            <div class="d-flex mb-3 me-md-4 justify-content-between align-items-center">
                 <div class="d-flex">
                     <a href="/post/<%= @post.user.id%>">
                         <% if @post.user.image %>
@@ -37,7 +37,7 @@
                 </div>
                 <% if current_user %>
                     <% if current_user.id == @post.user.id %>
-                        <div class="me-4">
+                        <div class="me-md-4">
                             <a href="/post/<%= @post.id %>/edit" class="badge px-3 py-2 text-decoration-none text-white rounded-pill bg-success">Edit</a>
                             <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
                         </div>
@@ -87,7 +87,6 @@
                                     </a>
                                 </div>
                                 <div class="col-3 d-flex justify-content-end">
-                                    
                                     <%= image_tag post.image_url, width: 56, height: 56 %>
                                 </div>
                             </div>

@@ -4,6 +4,7 @@ class AuthController < ApplicationController
       redirect_to '/'
     end
   end
+
   def user_login
     if params[:session][:email].blank?
       flash[:error_email] = "Email can't be blank"
@@ -26,6 +27,7 @@ class AuthController < ApplicationController
       render 'login'
     end
   end
+  
   def register
     if !current_user
       @user = User.new
@@ -33,6 +35,7 @@ class AuthController < ApplicationController
       redirect_to '/'
     end
   end
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -42,6 +45,7 @@ class AuthController < ApplicationController
       render 'register'
     end
   end
+
   def update
     @user = User.find(current_user.id)
     if @user.update(user_params)

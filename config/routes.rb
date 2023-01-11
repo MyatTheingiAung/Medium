@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   resources :post
   get 'post/:id', to: "post#show"
   get 'category/:name', to: "post#category_list"
-  get 'search', to: "post#search"
   post 'comment', to: "post#comment_store"
   post 'comment/reply', to: "post#comment_reply"
   post 'comment/:id', to: "post#comment_edit"

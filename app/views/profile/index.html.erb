@@ -1,5 +1,6 @@
 <%= render 'share/login_nav' %>
 <section class="container">
+    <%= render 'post/search' %>
     <div class="row">
         <div class="col-12 col-lg-8 blk py-5 mx-auto">
             <div class="row mb-5 pe-0 pe-md-5">
@@ -25,10 +26,9 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal" href="#">Edit Profile</a>
+                                    <%= link_to 'Edit Profile',class:'dropdown-item', data: { bs_toggle: 'modal', bs_target: 'profileModal', remote: 'true' } %>
                                 </li>
                                 <li>
-                                    <%# <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#passwordModal" href="#" data-remote="true">Change Password</a> %>
                                     <%= link_to 'Change Password',class:'dropdown-item', data: { bs_toggle: 'modal', bs_target: 'passwordModal', remote: 'true' } %>
                                 </li>
                             </ul> 
@@ -89,7 +89,7 @@
                                     <div class="col-1"></div>
                                     <div class="col-3">
                                         <% if post.image %>
-                                            <img src="<%= post.image_url %>" width="150px" height="150px">
+                                            <img src="<%= post.image_url %>" class="img-fluid" width="150px" height="150px">
                                         <% end %>
                                     </div>
                                 </div>
@@ -127,33 +127,8 @@
         </div>
     </div>
 </section>
+<section style="height:1000px"></section>
 <!--Profile Modal -->
 <%= render 'edit' %>
 <!--Pssword Modal -->
-<div class="modal fade" id="passwordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="image.png" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div id="changePassword"></div>
-        <%= form_with model: @user, url: '/profile/password',method: :patch, class:"form" do |form| %>
-            <div class="modal-body ps-5">
-            <div class="d-flex justify-content-between align-items-center pt-3 mb-5">
-                <h1 class="modal-title fs-4" id="image.png">Change Password</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-                <%= form.hidden_field :id, class:"user-id", value: current_user.id %>
-                <%= form.label :current_password, "Old Password", class:"mb-2" %>
-                <%= form.password_field :current_password, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Old Password", style:"outline:none;border-color:#ced4da" %>
-            
-                <%= form.label :password, "New Password", class:"mb-2" %>
-                <%= form.password_field :password, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"New Password", style:"outline:none;border-color:#ced4da" %>
-                <%= form.label :password_confirmation, "Confirm Password", class:"mb-2" %>
-                <%= form.password_field :password_confirmation, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Confirm Password", style:"outline:none;border-color:#ced4da" %>
-                <div class="d-flex justify-content-end">
-                    <a class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
-                    <%= form.submit 'Save' , class:"rounded-pill cursor-pointer bg-success text-white d-inline-block border-0 px-4 py-2" %>
-                </div>
-            </div>
-        <% end %>
-    </div>
-  </div>
-</div>
+<%= render 'password' %>

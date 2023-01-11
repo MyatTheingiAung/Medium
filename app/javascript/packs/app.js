@@ -23,4 +23,8 @@ $(document).ready(function(){
     $('#update-image').on('click', function(){
         $('#selectedFile').click();
     });
+    $('.search-btn').on('click', function(){
+        $('.search-form ').removeClass('d-none');
+        $('.search-form ').addClass('d-block');
+    });
 });
