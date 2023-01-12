@@ -5,6 +5,7 @@
 ## Requirements
 - Ruby 2.6.9
 - MySQL 5.7 or 8
+- Node 16.17.1
 
 ## Installation
 
