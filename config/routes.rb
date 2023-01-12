@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'post#index' 
+  root 'posts#index' 
   get 'comment/index'
   get 'profile/:id', to: 'profile#index'
   post 'profile', to: 'profile#update'
@@ -11,16 +11,16 @@ Rails.application.routes.draw do
   get 'register', to: 'auth#register'
   post 'register', to: 'auth#create'
   delete 'logout', to: "auth#logout"
-  get '/', to: "post#index"
-  get 'post/create'
-  post 'posts', to: "post#store"
+  get '/', to: "posts#index"
+  get 'posts/create'
+  post 'posts', to: "posts#store"
   resources :post
-  get 'post/:id', to: "post#show"
-  get 'category/:name', to: "post#category_list"
-  post 'comment', to: "post#comment_store"
-  post 'comment/reply', to: "post#comment_reply"
-  post 'comment/:id', to: "post#comment_edit"
-  delete 'comment/:id', to: "post#comment_destroy"
+  get 'posts/:id', to: "posts#show"
+  get 'category/:name', to: "posts#category_list"
+  post 'comment', to: "posts#comment_store"
+  post 'comment/reply', to: "posts#comment_reply"
+  post 'comment/:id', to: "posts#comment_edit"
+  delete 'comment/:id', to: "posts#comment_destroy"
   match "/404", to: "errors#not_found", via: :all
   match "/500", to: "errors#internal_server_error", via: :all
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

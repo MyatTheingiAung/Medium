@@ -1,52 +1,48 @@
-<div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="image.png"  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-body ps-5">
-            <div class="d-flex justify-content-between align-items-center pt-3 mb-5">
-                <h1 class="modal-title fs-4" id="image.png">Profile Information</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            
-            <%= form_with model: @user, url: '/profile', method: :post, local: false do |form| %>
-                <%= form.label :image, "Photo", class:"mb-3" %>
-                <div class="mb-4">
-                    <% if @user.image %>
-                        <img src="<%= @user.image_url%>" width="70px" height="70px" class="rounded-circle me-3">
-                    <% else %>
-                        <%= image_tag "user.png",height: 70, class:"default-img rounded-circle me-3" %>
-                        <%= image_tag "" ,id:"", class:"image-preview d-none rounded-circle me-3", width:70, height: 70 %>
-                    <% end %>
-                    <%= form.hidden_field :image, value: form.object.cached_image_data %>
-                    <%= form.file_field :image, class:"form-control d-none", id: 'selectedFile' %>
-                    <input type="button" class="border-0 bg-transparent text-success" value="Update" id="update-image" />
-                    <a class="text-decoration-none text-danger" href="/profile/image/<%= @user.image_data %>" data-method="delete" data-confirm="Are you sure?">Remove</a>
-                </div>
-                <%= form.label :name, "Name", class:"mb-2" %>
-                <%= form.text_field :name, value: @user.name, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1", placeholder:"Your Name", style:"outline:none;border-color:#ced4da" %>
-                <div id="nameError" class="mb-4 text-danger fw-bold" style="font-size:14px;"></div>
-
-                <%= form.label :email, "Email", class:"mb-2" %>
-                <%= form.text_field :email, value: @user.email, disabled: "disabled", class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Email", style:"outline:none;border-color:#ced4da" %>
-
-                <%= form.label :bio, "Bio", class:"mb-2" %>
-                <%= form.text_area :bio, value: @user.bio, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1", placeholder:"Your Bio", style:"outline:none;border-color:#ced4da" %>
-                <div id="bioError" class="mb-4 text-danger fw-bold" style="font-size:14px;"></div>
-
-                <div class="d-flex justify-content-end">
-                    <a href="" class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancle</span></a>
-                    <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>
-                </div>
-            <% end %>
+<%= form_with model: user, url: '/profile', method: :post, local: false do |form| %>
+    <div class="modal-body ps-5">
+        <div class="d-flex justify-content-between align-items-center pt-3 mb-5">
+            <h1 class="modal-title fs-4" id="image.png">Profile Information</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <%= form.label :image, "Photo", class:"mb-3" %>
+        <div class="mb-4">
+            <% if @user.image %>
+                <img src="<%= @user.image_url%>" width="70px" height="70px" class="rounded-circle me-3">
+            <% else %>
+                <%= image_tag "user.png",height: 70, class:"default-img rounded-circle me-3" %>
+                <%= image_tag "" ,id:"", class:"image-preview d-none rounded-circle me-3", width:70, height: 70 %>
+            <% end %>
+            <%= form.hidden_field :image, value: form.object.cached_image_data %>
+            <%= form.file_field :image, class:"form-control d-none", id: 'selectedFile' %>
+            <input type="button" class="border-0 bg-transparent text-success" value="Update" id="update-image" />
+            <a class="text-decoration-none text-danger" href="/profile/image/<%= @user.image_data %>" data-method="delete" data-confirm="Are you sure?">Remove</a>
+        </div>
+        <div id="imageError" class="mb-4 text-danger fw-bold" style="font-size:14px;"></div>
+
+        <%= form.label :name, "Name", class:"mb-2" %>
+        <%= form.text_field :name, value: @user.name, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1", placeholder:"Your Name", style:"outline:none;border-color:#ced4da" %>
+        <div id="nameError" class="mb-4 text-danger fw-bold" style="font-size:14px;"></div>
+
+        <%= form.label :email, "Email", class:"mb-2" %>
+        <%= form.text_field :email, value: @user.email, disabled: "disabled", class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1 mb-4", placeholder:"Your Email", style:"outline:none;border-color:#ced4da" %>
+
+        <%= form.label :bio, "Bio", class:"mb-2" %>
+        <%= form.text_area :bio, value: @user.bio, class:"w-100 border-start-0 border-end-0 border-top-0 py-2 border-bottom-1", placeholder:"Your Bio", style:"outline:none;border-color:#ced4da" %>
+        <div id="bioError" class="mb-4 text-danger fw-bold" style="font-size:14px;"></div>
+
+        <div class="d-flex justify-content-end">
+            <a href="" class="d-inline-block" data-bs-dismiss="modal" aria-label="Close"><span class="rounded-pill bg-white border border-success text-success d-inline-block me-3 px-4 py-2">Cancel</span></a>
+            <%= form.submit 'Save' , class:"rounded-pill bg-success text-white d-inline-block border-0 px-4 py-2" %>
+        </div>   
     </div>
-  </div>
-</div>
+<% end %>
 <script>
-$('#selectedFile').on('change', function() {
+    $('#update-image').click(function() {
+        $("#selectedFile").click();
+    });
+    $('#selectedFile').on('change', function() {
         $input = $(this);
         $('.cached-img').addClass('d-none');
-        var $image = $(".db-img");
-        $image.css('display','none');
         if($input.val().length > 0) {
             fileReader = new FileReader();
             fileReader.onload = function (data) {

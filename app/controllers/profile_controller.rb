@@ -10,7 +10,7 @@ class ProfileController < ApplicationController
 
   def update
     @user = current_user 
-    
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'User Update Successfully!.' }
@@ -24,41 +24,27 @@ class ProfileController < ApplicationController
 
   def password
     @user = current_user
-    if params[:user][:current_password].blank?
-      flash[:current] = "Old password can't blank"
-    elsif !@user.authenticate(params[:user][:current_password])
-      flash[:current] = ""
-      flash[:not_user] = "Credential do not match our record"
+    if !@user.authenticate(params[:user][:current_password])
+      flash[:not_user] = "Credential don't match our record"
     else
       flash[:not_user] = ""
     end
-    if params[:user][:password].blank?
-      flash[:password] = "New password can't blank"
-    else
-      flash[:password] = ""
-    end
-    if params[:user][:password_confirmation].blank?
-      flash[:password_confirmation] = "Password confirmation can't blank"
-    else
-      flash[:password_confirmation] = ""
-    end
-    if !params[:user][:password].blank? && !params[:user][:password_confirmation].blank?
-      if params[:user][:password] != params[:user][:password_confirmation]
-        flash[:unmatch_password] = "Password and password confirmation don't match"
-      else
-        flash[:unmatch_password] = ""
-      end
-    end
-    
     respond_to do |format|
-      if @user.update(pass_params)
-        format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change successfully.' }
+      if @user && @user.authenticate(params[:user][:current_password])
+        if @user.update(pass_params)
+          format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change successfully.' }
+        else
+          format.js
+          format.html { render :index , notice: 'Password change failed' }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       else
         format.js
         format.html { render :index , notice: 'Password change failed' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+      
   end
 
   def user_image_delete
@@ -69,7 +55,7 @@ class ProfileController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :bio, :image)
+    params.require(:user).permit(:name, :email, :bio, :image, :password, :password_confirmation)
   end
   def pass_params
     params.require(:user).permit(:password, :password_confirmation)

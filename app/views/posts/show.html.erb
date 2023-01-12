@@ -38,8 +38,8 @@
                 <% if current_user %>
                     <% if current_user.id == @post.user.id %>
                         <div class="me-md-4">
-                            <a href="/post/<%= @post.id %>/edit" class="badge px-3 py-2 text-decoration-none text-white rounded-pill bg-success">Edit</a>
-                            <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
+                            <a href="/posts/<%= @post.id %>/edit" class="badge px-3 py-2 text-decoration-none text-white rounded-pill bg-success">Edit</a>
+                            <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', posts_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
                         </div>
                     <% end %>
                 <% end %>
@@ -82,7 +82,7 @@
                                         </a>
                                     </div>
                                     </div>
-                                    <a href="/post/<%= post.id %>" class="text-decoration-none text-black">
+                                    <a href="/posts/<%= post.id %>" class="text-decoration-none text-black">
                                         <p class="fw-bold fs-6" style="letter-spacing:1px;"><%= post.title %></p>
                                     </a>
                                 </div>
@@ -122,8 +122,8 @@
                         <div class="mb-5">
                             <div class="d-flex mb-2">
                             <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black">
-                                <% if comment.user.image.attached? %>
-                                    <img src="<%= (url_for(comment.user.image)) %>" height="50px" class="rounded-circle me-2">
+                                <% if comment.user.image %>
+                                    <img src="<%= comment.user.image_url %>" height="50px" class="rounded-circle me-2">
                                 <% else %>
                                     <%= image_tag "user.png",height: 50, class:"rounded-circle me-2" %>
                                 <% end %>
@@ -156,8 +156,8 @@
                                     <% comment.comments.each do |comment| %>
                                         <div class="d-flex mb-2">
                                             <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black">
-                                                <% if comment.user.image.attached? %>
-                                                    <img src="<%= (url_for(comment.user.image)) %>" height="50px" class="rounded-circle me-2">
+                                                <% if comment.user.image %>
+                                                    <img src="<%= comment.user.image_url %>" height="50px" class="rounded-circle me-2">
                                                 <% else %>
                                                     <%= image_tag "user.png",height: 50, class:"rounded-circle me-2" %>
                                                 <% end %>

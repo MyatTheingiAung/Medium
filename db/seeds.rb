@@ -7,22 +7,22 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Category.destroy_all
 Category.create!([{
-    name: "Laptop",
+    name: "laptop",
 },
 {
-    name: "Phone",
+    name: "phone",
 },
 {
-    name: "Tablet",
+    name: "tablet",
 },
 {
-    name: "Watch",
+    name: "watch",
 },
 {
-    name: "Power Bank",
+    name: "power bank",
 },
 {
-    name: "Earphone",
+    name: "earphone",
 }
 ])
   
@@ -60,8 +60,8 @@ uploaded_file = uploader.upload(file)
 
 post = Post.new(
     title: "Beach Globe Paradise",
-    category_id: 1,
-    user_id: 1,
+    category_id: rand(1..6),
+    user_id: rand(1..3),
     description: "Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita and the other well, the other flips off life violently forbidden contestants on...",
     image_data: uploaded_file.to_json
 )
@@ -70,8 +70,8 @@ post.save!
 
 post = Post.new(
     title: "The Power of Indulging Your Weird",
-    category_id: 2,
-    user_id: 2,
+    category_id: rand(1..6),
+    user_id: rand(1..3),
     description: "Back in 1964, the microbiologist Thomas Brock visited Yellowstone National Park to do some sightseeing. He was on a long car ride, and wanted to break up the monotony. Amber's glow spans skies — write us some place nice, she said I plop chairs on a beach somewhere — one hand grips a frosty margarita and the other well, the other flips off life violently forbidden contestants on...",
     image_data: uploaded_file.to_json
 )
@@ -80,13 +80,13 @@ post.save!
 p "Created #{Post.count} posts"
 
 Comment.create!([{
-    user_id: 1,
-    post_id: 1,
+    user_id: rand(1..3),
+    post_id: rand(1..2),
     comment: "hello",
 },
 {
-    user_id: 2,
-    post_id: 2,
+    user_id: rand(1..3),
+    post_id: rand(1..2),
     comment: "hello",
 }
 ])

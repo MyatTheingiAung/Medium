@@ -1,4 +1,4 @@
-class PostController < ApplicationController
+class PostsController < ApplicationController
 
   before_action :find_post, only: [:edit, :update, :destroy, :show]
   before_action :comment, only: [:comment_store, :comment_reply, :comment_edit]
@@ -6,8 +6,8 @@ class PostController < ApplicationController
 
   def category_list
     @categories = Category.all
-    category = Category.where(name: params[:name]).first
-    @posts = Post.where(category_id: category.id).all
+    @category = Category.where(name: params[:name]).first
+    @posts = Post.where(category_id: @category.id).all
   end
 
   def index

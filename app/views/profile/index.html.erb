@@ -1,6 +1,6 @@
 <%= render 'share/login_nav' %>
 <section class="container">
-    <%= render 'post/search' %>
+    <%= render 'posts/search' %>
     <div class="row">
         <div class="col-12 col-lg-8 blk py-5 mx-auto">
             <div class="row mb-5 pe-0 pe-md-5">
@@ -16,8 +16,8 @@
                         </div>
                         <% if current_user.id == @user.id %>
                             <div class="d-none d-md-inline-block">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#profileModal" class="d-inline-block"><span class="rounded-pill bg-secondary text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Edit Profile</span></a>
-                                <a href="" data-bs-toggle="modal" data-bs-target="#passwordModal" class="d-inline-block"><span class="rounded-pill bg-success text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Change Password</span></a>
+                                <a href="" id="changeProfile" data-bs-toggle="modal" data-bs-target="#profileModal" class="d-inline-block"><span class="rounded-pill bg-secondary text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Edit Profile</span></a>
+                                <a href="" id="changePass" data-bs-toggle="modal" data-bs-target="#passwordModal" class="d-inline-block"><span class="rounded-pill bg-success text-white d-inline-block px-2 px-md-4 py-1 py-md-2">Change Password</span></a>
                             </div>
                         <% end %>
                         <div class="dropdown d-md-none">
@@ -127,8 +127,33 @@
         </div>
     </div>
 </section>
-<section style="height:1000px"></section>
 <!--Profile Modal -->
-<%= render 'edit' %>
+<div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="image.png"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div id="editContent"></div>
+    </div>
+  </div>
+</div>
 <!--Pssword Modal -->
-<%= render 'password' %>
+<div class="modal fade" id="passwordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="image.png" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div id="passwordContent"></div>
+    </div>
+  </div>
+</div>
+<script>
+    $('#changeProfile').on('click', function() {
+        $("#editContent").html("<%= escape_javascript(render('edit', user: @user)) %>")
+    })
+    $("#changePass").on('click', function () {
+        $("#passwordContent").html("<%= escape_javascript(render('password', user: @user)) %>")
+        $('.passSave').prop('disabled', true);
+        $('#currentPassword').keyup(function () {
+            if ($(this).val() != '') {
+                $('.passSave').prop('disabled', false);
+            }
+        });
+    })
+</script>

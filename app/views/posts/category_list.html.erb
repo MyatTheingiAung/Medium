@@ -11,7 +11,7 @@
                 <h5>CATEGORY</h5>
                 <div class="mt-4 pb-4">
                     <% @categories.each do |category| %>
-                        <a href="/category/<%= category.name %>" class="border mb-2 me-1 rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);"><%= category.name %></a>
+                        <a href="/category/<%= category.name %>" class="border mb-2 me-1 text-capitalize rounded d-inline-block text-decoration-none px-2 px-md-3 py-2" style="color:rgba(117, 117, 117, 1);"><%= category.name %></a>
                     <% end %>
                 </div>
                 <div class="d-lg-block d-none border-bottom">
@@ -35,7 +35,7 @@
         <div class="col-lg-7 col-12">
             <div class="d-flex pb-3 align-items-center border-bottom border-dark-50">
                 <span class="px-1 pb-1 me-2 rounded-circle" style="background-color:rgb(237, 237, 237);"><svg width="21" height="21" class="uv"><path d="M4.66 8.72L3.43 9.95a1.75 1.75 0 0 0 0 2.48l5.14 5.13c.7.7 1.8.69 2.48 0l1.23-1.22 5.35-5.35a2 2 0 0 0 .51-1.36l-.32-4.29a2.42 2.42 0 0 0-2.15-2.14l-4.3-.33c-.43-.03-1.05.2-1.36.51l-.79.8-2.27 2.28-2.28 2.27zm9.83-.98a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5z" fill-rule="evenodd"></path></svg></span>
-                <h1 class="m-0 fw-bolder"><%= @category.name %></h1>
+                <h1 class="m-0 fw-bolder text-capitalize"><%= @category.name %></h1>
             </div>
             <% @posts.each do |post| %>
             <div class="mt-5 mb-5">
@@ -43,8 +43,8 @@
                     <div class="col-8">
                         <div class="d-flex justify-content-start align-items-center mb-0 mb-md-2">
                             <a href="/profile/<%= post.user.id %>" class="text-decoration-none">
-                                <% if post.user.image.attached? %>
-                                    <img src="<%= (url_for(post.user.image)) %>" height="24px" class="rounded-circle me-2">
+                                <% if post.user.image %>
+                                    <img src="<%= post.user.image_url %>" height="24px" class="rounded-circle me-2">
                                 <% else %>
                                     <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
                                 <% end %>
@@ -53,21 +53,21 @@
                                 <p class="fw-bold px-2 m-0"><%= post.user.name %></p>
                             </a>                 
                         </div>
-                        <a href="/post/<%= post.id %>" class="text-decoration-none text-black">
+                        <a href="/posts/<%= post.id %>" class="text-decoration-none text-black">
                             <p class="fw-bold fs-5 fs-md-3"><%= post.title %></p>
                         </a>
-                        <a href="/post/<%= post.id %>" class="text-decoration-none" style="color: rgba(41, 41, 41, 1)">
+                        <a href="/posts/<%= post.id %>" class="text-decoration-none" style="color: rgba(41, 41, 41, 1)">
                             <p class="fs-6 d-none d-md-block" style="color:rgba(117, 117, 117, 1);font-weight:500;"><%=raw post.description %></p>
                         </a>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="align-items-end" style="color:rgba(117, 117, 117, 1);">
-                                <span><%= time_ago_in_words(post.created_at) %></span> <span class="mx-1">.</span> <span>9 min read</span> <span class="mx-1">.</span> <a href="/category/<%= post.category.name %>" class="d-none text-decoration-none d-md-inline-block rounded-pill d-inline-block px-3 pb-1" style="background-color: rgba(242, 242, 242, 1);color:rgba(117, 117, 117, 1);"><%= post.category.name %></a>
+                                <span><%= time_ago_in_words(post.created_at) %></span> <span class="mx-1">.</span> <span>9 min read</span> <span class="mx-1">.</span> <a href="/category/<%= post.category.name %>" class="d-none text-capitalize text-decoration-none d-md-inline-block rounded-pill d-inline-block px-3 pb-1" style="background-color: rgba(242, 242, 242, 1);color:rgba(117, 117, 117, 1);"><%= post.category.name %></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-4">
-                        <% if post.image.attached? %>
-                            <img src="<%= (url_for(post.image)) %>" class="img-fluid mb-4" width="110px" height="110px">
+                        <% if post.image %>
+                            <img src="<%= post.image_url %>" class="img-fluid mb-4" width="110px" height="110px">
                         <% end %>
                     </div>
                 </div>
