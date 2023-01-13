@@ -14,14 +14,14 @@ Rails.application.routes.draw do
   get '/', to: "posts#index"
   get 'posts/create'
   post 'posts', to: "posts#store"
-  resources :post
+  resources :posts
   get 'posts/:id', to: "posts#show"
   get 'category/:name', to: "posts#category_list"
   post 'comment', to: "posts#comment_store"
   post 'comment/reply', to: "posts#comment_reply"
   post 'comment/:id', to: "posts#comment_edit"
   delete 'comment/:id', to: "posts#comment_destroy"
-  match "/404", to: "errors#not_found", via: :all
-  match "/500", to: "errors#internal_server_error", via: :all
+  # match "/404", to: "errors#not_found", via: :all
+  # match "/500", to: "errors#internal_server_error", via: :all
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

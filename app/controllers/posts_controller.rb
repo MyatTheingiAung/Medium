@@ -127,5 +127,7 @@ class PostsController < ApplicationController
     @categories = Category.all
     @last_posts = Post.order("id DESC").first(3)
   end
-
+  def flash_clear
+    flash.discard
+  end
 end

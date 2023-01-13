@@ -1,4 +1,5 @@
 class AuthController < ApplicationController
+
   def login
     if session[:user_id]
       redirect_to '/'
@@ -46,13 +47,6 @@ class AuthController < ApplicationController
     end
   end
 
-  def update
-    @user = User.find(current_user.id)
-    if @user.update(user_params)
-      flash[:notice] = "Post Update Successfully!."
-      redirect_to(:action => :index)
-    end
-  end
   def logout
     session[:user_id] = nil
     flash[:notice] = "You have been logged out."

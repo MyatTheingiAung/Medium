@@ -55,10 +55,10 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="posts/<%= post.id %>/edit" class="dropdown-item text-decoration-none text-black">Edit</a>
+                                                        <a href="/posts/<%= post.id %>/edit" class="dropdown-item text-decoration-none text-black">Edit</a>
                                                     </li>
                                                     <li>
-                                                        <%= link_to 'Destroy', posts_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item text-danger text-decoration-none" %>
+                                                        <%= link_to 'Destroy', 'posts/'+post.id.to_s , method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item text-danger text-decoration-none" %>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -71,7 +71,7 @@
                     <%= paginate @posts %>
                 </div>
             </div>
-            <div class="d-none d-lg-block col-4 pt-5 ps-5 position-relative">
+            <div class="d-none d-lg-block col-4 pt-5 ps-5 position-relative" style="z-index:1">
                 <div class="sticky-top" style="top:120px">
                     <h3 class="fw-bolder mb-4">2022 in Latest Posts</h3>
                     <div class="pb-4 border-bottom border-dark-50">

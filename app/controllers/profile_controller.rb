@@ -31,7 +31,8 @@ class ProfileController < ApplicationController
     end
     respond_to do |format|
       if @user && @user.authenticate(params[:user][:current_password])
-        if @user.update(pass_params)
+        @user.update(pass_params)
+        if @user.valid?(:update_password)
           format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change successfully.' }
         else
           format.js

@@ -107,10 +107,10 @@
                                                         </button>
                                                         <ul class="dropdown-menu">
                                                             <li>
-                                                                <a href="/post/<%= post.id %>/edit" class="dropdown-item text-decoration-none text-black">Edit</a>
+                                                                <a href="/posts/<%= post.id %>/edit" class="dropdown-item text-decoration-none text-black">Edit</a>
                                                             </li>
                                                             <li>
-                                                                <%= link_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item text-danger text-decoration-none" %>
+                                                                <%= link_to 'Destroy', '/posts/'+post.id.to_s, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item text-danger text-decoration-none" %>
                                                             </li>
                                                         </ul>
                                                     </div>
