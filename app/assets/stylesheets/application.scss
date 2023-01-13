@@ -21,6 +21,14 @@
   margin-top: 63px !important;
 }
 
+#toast-container > .toast:nth-of-type(1) {
+  display: block;
+}
+
+#toast-container > .toast {
+  display: none;
+}
+
 .dropdown-toggle::after {
   display: none !important;
 }

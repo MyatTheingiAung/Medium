@@ -39,7 +39,7 @@
                     <% if current_user.id == @post.user.id %>
                         <div class="me-md-4">
                             <a href="/posts/<%= @post.id %>/edit" class="badge px-3 py-2 text-decoration-none text-white rounded-pill bg-success">Edit</a>
-                            <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', posts_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
+                            <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', '/posts/'+@post.id.to_s, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
                         </div>
                     <% end %>
                 <% end %>

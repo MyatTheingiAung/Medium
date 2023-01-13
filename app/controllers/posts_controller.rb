@@ -74,7 +74,7 @@ class PostsController < ApplicationController
     @comment = Comment.new(comment_param)
     if @comment.save
       flash[:notice] = "Comment Create Successfully!."
-      redirect_to '/post/'+comment_param[:post_id]
+      redirect_to '/posts/'+comment_param[:post_id]
     else
       render 'show'
     end
@@ -84,7 +84,7 @@ class PostsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.destroy
       flash[:notice] = "Comment Delete Successfully!."
-      redirect_to '/post/'+@comment.post_id.to_s
+      redirect_to '/posts/'+@comment.post_id.to_s
     end
   end
 
@@ -92,7 +92,7 @@ class PostsController < ApplicationController
     @comment = Comment.new(comment_param)
     if @comment.save
       flash[:notice] = "Comment Create Successfully!."
-      redirect_to '/post/'+comment_param[:post_id]
+      redirect_to '/posts/'+comment_param[:post_id]
     else
       render 'show'
     end
@@ -102,7 +102,7 @@ class PostsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.update(comment_param)
       flash[:notice] = "Cpmment Update Successfully!."
-      redirect_to '/post/'+comment_param[:post_id]
+      redirect_to '/posts/'+comment_param[:post_id]
     else
       render 'show'
     end
@@ -126,8 +126,5 @@ class PostsController < ApplicationController
   def post_index
     @categories = Category.all
     @last_posts = Post.order("id DESC").first(3)
-  end
-  def flash_clear
-    flash.discard
   end
 end

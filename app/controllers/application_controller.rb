@@ -15,4 +15,11 @@ class ApplicationController < ActionController::Base
             redirect_to login_path
         end
     end
+    def flash_clear
+        flash.discard
+    end
+
+    def original_url
+        base_url + original_fullpath
+    end
 end

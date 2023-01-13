@@ -35,7 +35,7 @@ class ProfileController < ApplicationController
         if @user.valid?(:update_password)
           format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change successfully.' }
         else
-          format.js
+          format.js 
           format.html { render :index , notice: 'Password change failed' }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
