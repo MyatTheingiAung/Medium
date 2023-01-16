@@ -27,7 +27,7 @@
                         <% if @post.user.image %>
                             <img src="<%= @post.user.image_url %>" width="40px" height="40px" class="rounded-circle me-2">
                         <% else %>
-                            <%= image_tag "user.png",height: 40, class:"rounded-circle me-2" %>
+                            <%= image_tag "user.png",height: 40, width: 40, class:"rounded-circle me-2" %>
                         <% end %>
                     </a>
                     <div class="ms-3">
@@ -39,7 +39,9 @@
                     <% if current_user.id == @post.user.id %>
                         <div class="me-md-4">
                             <a href="/posts/<%= @post.id %>/edit" class="badge px-3 py-2 text-decoration-none text-white rounded-pill bg-success">Edit</a>
-                            <span class="badge rounded-pill bg-danger px-3 py-2"><%= link_to 'Delete', posts_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white text-decoration-none" %></span>
+                            <span class="badge rounded-pill bg-danger px-3 py-2">
+                                <a href="<%= @post.id %>" data-method="delete" data-confirm="Are you Sure?" class="text-white text-decoration-none">Delete</a>
+                            </span>
                         </div>
                     <% end %>
                 <% end %>
@@ -57,7 +59,7 @@
                 <% if @post.user.image %>
                     <img src="<%= @post.user.image_url %>" width="70px" height="70px" class="rounded-circle me-2">
                 <% else %>
-                    <%= image_tag "user.png",height: 70, class:"rounded-circle me-2" %>
+                    <%= image_tag "user.png",height: 70, width: 70, class:"rounded-circle me-2" %>
                 <% end %>
                 <p class="fs-5 fw-bold m-0 text-capitalize pb-2"><%= @post.user.name %></p>
                 <p class="txt-color fw-bold"><%= @posts.count %> Posts</p>
@@ -65,7 +67,7 @@
                 <div>
                     <p class="fs-5" style="font-weight:500;">More from Medium</p>
                     <div>
-                        <% @posts.each do |post| %>
+                        <% @last_posts.each do |post| %>
                             <div class="row mb-3">
                                 <div class="col-9">
                                     <div class="d-flex align-items-center mb-2">
@@ -73,7 +75,7 @@
                                         <% if post.user.image %>
                                             <img src="<%= post.user.image_url %>" width="20px" height="20px" class="rounded-circle me-2">
                                         <% else %>
-                                            <%= image_tag "user.png",height: 20, class:"rounded-circle me-2" %>
+                                            <%= image_tag "user.png",height: 20, width: 20, class:"rounded-circle me-2" %>
                                         <% end %>
                                     </a>
                                     <div class="ms-2">
@@ -123,9 +125,9 @@
                             <div class="d-flex mb-2">
                             <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black">
                                 <% if comment.user.image %>
-                                    <img src="<%= comment.user.image_url %>" height="50px" class="rounded-circle me-2">
+                                    <img src="<%= comment.user.image_url %>" height="50px" width="50px" class="rounded-circle me-2">
                                 <% else %>
-                                    <%= image_tag "user.png",height: 50, class:"rounded-circle me-2" %>
+                                    <%= image_tag "user.png",height: 50, width: 50, class:"rounded-circle me-2" %>
                                 <% end %>
                             </a>
                             <div class="ms-3">
@@ -157,9 +159,9 @@
                                         <div class="d-flex mb-2">
                                             <a href="/profile/<%= comment.user.id %>" class="text-decoration-none text-black">
                                                 <% if comment.user.image %>
-                                                    <img src="<%= comment.user.image_url %>" height="50px" class="rounded-circle me-2">
+                                                    <img src="<%= comment.user.image_url %>" height="50px" width="50px" class="rounded-circle me-2">
                                                 <% else %>
-                                                    <%= image_tag "user.png",height: 50, class:"rounded-circle me-2" %>
+                                                    <%= image_tag "user.png",height: 50, width: 50, class:"rounded-circle me-2" %>
                                                 <% end %>
                                             </a>
                                             <div class="ms-3">

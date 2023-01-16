@@ -12,9 +12,9 @@
                                     <div class="d-flex align-items-center mb-3">
                                         <a href="/profile/<%= post.user_id %>">
                                             <% if post.user.image %>
-                                                <%= image_tag post.user.image_url,height: 32, class:"rounded-circle me-2" %>
+                                                <%= image_tag post.user.image_url,height: 32, width: 32, class:"rounded-circle me-2" %>
                                             <% else %>
-                                                <%= image_tag "user.png",height: 32, class:"rounded-circle me-2" %>
+                                                <%= image_tag "user.png",height: 32, width: 32, class:"rounded-circle me-2" %>
                                             <% end %>
                                         </a>
                                         <a href="/profile/<%= post.user.id %>" class="text-decoration-none text-black">
@@ -37,8 +37,8 @@
                                 <div class="col-1"></div>
                                 <div class="col-3">
                                 <% if post.image%>
-                                    <%= image_tag post.image_url, class: "d-none d-md-block", width: 100, height: 100%>
-                                    <%= image_tag post.image_url, class: "img-fluid d-md-none", width: 100, height: 100%>
+                                    <%= image_tag post.image_url, class: "d-none d-md-block", width: 100, height: 100 %>
+                                    <%= image_tag post.image_url, class: "img-fluid d-md-none", width: 100, height: 100 %>
                                 <% end %>
                                 </div> 
                             </div>
@@ -79,9 +79,9 @@
                             <div class="d-flex align-items-center mb-2">
                                 <a href="/profile/<%= last_post.user.id %>" class="text-decoration-none text-black">
                                     <% if last_post.user.image%>
-                                        <%= image_tag last_post.user.image_url,height: 24, class:"rounded-circle me-2" %>
+                                        <%= image_tag last_post.user.image_url,height: 24, width: 24, class:"rounded-circle me-2" %>
                                     <% else %>
-                                        <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
+                                        <%= image_tag "user.png",height: 24, width: 24, class:"rounded-circle me-2" %>
                                     <% end %>
                                 </a>
                                 <a href="/profile/<%= last_post.user.id %>" class="text-decoration-none text-black"><p class="m-0"><span class="fs-6 me-1 text-capitalize"><%= last_post.user.name %></span></a>
@@ -153,9 +153,9 @@
                             <div class="d-flex justify-content-start align-items-center mb-0 mb-md-2">
                             <a href="/profile/<%= post.user.id %>">
                                 <% if post.user.image %>
-                                    <%= image_tag post.user.image_url ,height: 30, class:"rounded-circle" %>
+                                    <%= image_tag post.user.image_url ,height: 30, width: 30, class:"rounded-circle" %>
                                 <% else %>
-                                    <%= image_tag "user.png",height: 30, class:"rounded-circle" %>
+                                    <%= image_tag "user.png",height: 30, width: 30, class:"rounded-circle" %>
                                 <% end %>
                             </a>
                             <a href="/profile/<%= post.user.id %>" class="text-decoration-none text-black">

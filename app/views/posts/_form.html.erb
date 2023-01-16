@@ -2,6 +2,8 @@
     <%= form.text_field :title , class:"form-control", placeholder:"Post Title" %>
     <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:title).to_sentence %></span>
 
+    <%= form.hidden_field :user_id, :value => session[:user_id] %>
+    
     <%= form.select(:category_id, options_from_collection_for_select(Category.all, :id , :name , @category_id), {include_blank: "Select a category"}, { :class => 'form-select' }) %>
     <span class="mb-4 d-block text-danger fw-bold" style="font-size:14px;"><%= form.object.errors.full_messages_for(:category_id).to_sentence %></span>
 

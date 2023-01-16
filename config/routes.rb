@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post 'profile', to: 'profile#update'
   delete 'profile', to: 'profile#image_destroy'
   patch 'profile/password', to: 'profile#password'
-  delete 'profile/image/:id', to: 'profile#user_image_delete'
+  delete 'profile/image', to: 'profile#user_image_delete'
   get 'login', to: 'auth#login'
   post 'login', to: 'auth#user_login'
   get 'register', to: 'auth#register'

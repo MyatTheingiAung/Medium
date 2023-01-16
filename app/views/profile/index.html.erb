@@ -64,9 +64,9 @@
                                         <div class="d-flex align-items-center mb-3">
                                             <a href="/profile/<%= post.user.id %>">
                                                 <% if post.user.image %>
-                                                    <img src="<%= post.user.image_url %>" height="24px" class="rounded-circle me-2">
+                                                    <img src="<%= post.user.image_url %>" height="24px" width="24px" class="rounded-circle me-2">
                                                 <% else %>
-                                                    <%= image_tag "user.png",height: 24, class:"rounded-circle me-2" %>
+                                                    <%= image_tag "user.png",height: 24, width: 24, class:"rounded-circle me-2" %>
                                                 <% end %>
                                             </a>
                                             <a href="/profile/<%= post.user.id %>" class="text-decoration-none text-black">
@@ -77,10 +77,10 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-8">
-                                        <a href="/post/<%= post.id %>" class="text-decoration-none text-black">
+                                        <a href="/posts/<%= post.id %>" class="text-decoration-none text-black">
                                             <h4 class="fw-bolder"><%= post.title %></h4>
                                         </a>
-                                        <a href="/post/<%= post.id %>" class="text-decoration-none" style="color: rgba(41, 41, 41, 1)">
+                                        <a href="/posts/<%= post.id %>" class="text-decoration-none" style="color: rgba(41, 41, 41, 1)">
                                             <p class="m-0 d-none d-md-block" style="line-height:1.7;text-align:justify;">
                                                 <%=raw (post.description).truncate(450) %> 
                                             </p>

@@ -2,7 +2,7 @@ class AuthController < ApplicationController
 
   def login
     if session[:user_id]
-      redirect_to '/'
+      redirect_to root_path
     end
   end
 
@@ -18,27 +18,28 @@ class AuthController < ApplicationController
     else
       flash[:error_password]=""
     end
-    @user = User.find_by(email: params[:session][:email])
+    
+    @user = AuthService.findUser(params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
       flash[:notice] = "Logged in successfully!"
       session[:user_id] = @user.id
-      redirect_to '/'
+      redirect_to root_path
     else
-      flash[:alert] = "Credential do not match our record!"
+      flash[:user_alert] = "Credential do not match our record!"
       render 'login'
     end
   end
   
   def register
     if !current_user
-      @user = User.new
+      @user = AuthService.newUser
     else
-      redirect_to '/'
+      redirect_to root_path
     end
   end
 
   def create
-    @user = User.new(user_params)
+    @user = AuthService.createUser(user_params)
     if @user.save
       flash[:notice] = "Register Successfully!."
       redirect_to(:action => :login)
@@ -50,7 +51,7 @@ class AuthController < ApplicationController
   def logout
     session[:user_id] = nil
     flash[:notice] = "You have been logged out."
-    redirect_to '/'
+    redirect_to root_path
   end
 
   private

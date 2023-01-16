@@ -8,9 +8,5 @@ class Post < ApplicationRecord
     validates :category_id, presence: true
     validates :image, presence: true
     validates :description, presence: true ,length: { minimum: 20 }
-    validate :correct_image_type
 
-    private
-    def correct_image_type
-    end
 end

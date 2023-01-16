@@ -6,7 +6,7 @@
                 <h3 class="mb-3">Login</h3>
                 <div id="hideMeAfter5Seconds">
                     <% if flash[:error_email].blank? && flash[:error_password].blank? %>
-                        <% if flash[:alert] %>
+                        <% if flash[:user_alert] %>
                             <p class="notice alert alert-danger" role="alert"><%= flash[:alert] %></p>
                         <% end %>
                     <% end %>

@@ -3,16 +3,16 @@ class ProfileController < ApplicationController
   
   def index
     if !require_user
-      @user = User::find(params[:id])
-      @posts = Post.where(user_id: params[:id]).page(params[:page])
+      @user = ProfilesService.findUser(params[:id])
+      @posts = ProfilesService.findPost(params[:id], params[:page])
     end
   end
 
   def update
-    @user = current_user 
-
+    @user = current_user
+    isUpdateProfile = ProfilesService.updateProfile(@user, user_params)
     respond_to do |format|
-      if @user.update(user_params)
+      if isUpdateProfile
         format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'User Update Successfully!.' }
       else
         format.js
@@ -24,13 +24,14 @@ class ProfileController < ApplicationController
 
   def password
     @user = current_user
-    if !@user.authenticate(params[:user][:current_password])
+    userAuthenticate = ProfilesService.userAuthenticate(@user,params[:user][:current_password])
+    if !userAuthenticate
       flash[:not_user] = "Credential don't match our record"
     else
       flash[:not_user] = ""
     end
     respond_to do |format|
-      if @user && @user.authenticate(params[:user][:current_password])
+      if @user && userAuthenticate
         @user.update(pass_params)
         if @user.valid?(:update_password)
           format.html { redirect_to '/profile/'+current_user.id.to_s, notice: 'Password change successfully.' }
@@ -49,19 +50,21 @@ class ProfileController < ApplicationController
   end
 
   def user_image_delete
-    image = ActiveStorage::Blob.find_by(params[:id])
-    current_user.image.purge
-    redirect_to(:action => :index)
+    userImageDelete = ProfilesService.userImageDelete(current_user)
+    if userImageDelete 
+      flash[:notice] = "User photo delete Successfully!."
+      redirect_to '/profile/'+current_user.id.to_s
+    end
   end
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :bio, :image, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :bio, :image)
   end
   def pass_params
     params.require(:user).permit(:password, :password_confirmation)
   end
   def find_post
-    @posts = Post.where(user_id: current_user.id).page(params[:page])
+    @posts = ProfilesService.findPost(current_user.id, params[:page])
   end
 end
