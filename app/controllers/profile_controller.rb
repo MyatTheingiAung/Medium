@@ -49,9 +49,11 @@ class ProfileController < ApplicationController
   end
 
   def user_image_delete
-    image = ActiveStorage::Blob.find_by(params[:id])
-    current_user.image.purge
-    redirect_to(:action => :index)
+    current_user.image.delete
+    current_user.image_data = nil
+    current_user.save
+    flash[:notice] = "User photo delete successfully!"
+    redirect_to '/profile/'+current_user.id.to_s
   end
 
   private

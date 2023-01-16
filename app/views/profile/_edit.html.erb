@@ -9,13 +9,13 @@
             <% if @user.image %>
                 <img src="<%= @user.image_url%>" width="70px" height="70px" class="rounded-circle me-3">
             <% else %>
-                <%= image_tag "user.png",height: 70, class:"default-img rounded-circle me-3" %>
+                <%= image_tag "user.png",height: 70, width: 70, class:"default-img rounded-circle me-3" %>
                 <%= image_tag "" ,id:"", class:"image-preview d-none rounded-circle me-3", width:70, height: 70 %>
             <% end %>
             <%= form.hidden_field :image, value: form.object.cached_image_data %>
             <%= form.file_field :image, class:"form-control d-none", id: 'selectedFile' %>
             <input type="button" class="border-0 bg-transparent text-success" value="Update" id="update-image" />
-            <a class="text-decoration-none text-danger" href="/profile/image/<%= @user.image_data %>" data-method="delete" data-confirm="Are you sure?">Remove</a>
+            <a class="text-decoration-none text-danger" href="/profile/image" data-method="delete" data-confirm="Are you sure?">Remove</a>
         </div>
         <div id="imageError" class="mb-4 text-danger fw-bold" style="font-size:14px;"></div>
 
