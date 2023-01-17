@@ -1,5 +1,3 @@
-# README
-
 # Medium Blog
 
 ## Requirements
